@@ -1,6 +1,0 @@
-title: My Portfolio Site
-description: My personal website showcasing projects and skills.
-theme: jekyll-theme-primer
-plugins:
-  - jekyll-seo-tag
-  - jekyll-github-metadata
