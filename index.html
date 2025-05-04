@@ -270,6 +270,19 @@
         duration: 800, // values from 0 to 3000, with step 50ms
         once: true, // whether animation should happen only once - while scrolling down
       });
+
+      // Close navbar on mobile link click
+      const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+      const menuToggle = document.getElementById('navbarNav');
+      const bsCollapse = new bootstrap.Collapse(menuToggle, { toggle: false });
+      navLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+              // Check if the navbar collapse element is currently shown
+              if (menuToggle.classList.contains('show')) {
+                  bsCollapse.toggle();
+              }
+          });
+      });
     </script>
 
     <!-- JavaScript for Typing Effect -->
