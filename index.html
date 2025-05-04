@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,14 +8,102 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
       /* Optional: Add some custom styles */
+      html {
+        scroll-padding-top: 70px; /* Adjust this value based on your navbar's height */
+      }
+
+      body {
+        /* Darker, more colorful gradient */
+        background: linear-gradient(to right, #16192e, #2a2d4e);
+        color: #f8f9fa; /* Light text for contrast */
+      }
+
+      .navbar {
+        /* Solid dark blue/grey navbar */
+        background-color: #1a1c33 !important;
+        backdrop-filter: blur(5px); /* Keep the blur effect */
+      }
+
+      .nav-link {
+        color: rgba(255, 255, 255, 0.85) !important;
+      }
+      .nav-link:hover, .navbar-brand:hover {
+        color: #fff !important;
+      }
+      .navbar-brand {
+        color: #fff !important;
+      }
+
+      .bg-body-tertiary {
+        /* Darker semi-transparent hero */
+        background-color: rgba(42, 45, 78, 0.7) !important;
+        border: 1px solid rgba(102, 252, 241, 0.2); /* Accent color border */
+        color: #f8f9fa; /* Ensure text inside is light */
+      }
+
+      .text-body-emphasis {
+          color: #fff !important; /* Ensure hero title is white */
+      }
+
+      .lead {
+          color: #e9ecef !important; /* Lighter lead text color */
+      }
+
+      h2 {
+        color: #fff; /* White headings */
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Slightly stronger shadow */
+      }
+
+      .border-bottom {
+          /* Accent color border */
+          border-bottom: 1px solid rgba(102, 252, 241, 0.3) !important;
+      }
+
+      .card {
+          /* Darker card background */
+          background-color: rgba(26, 28, 51, 0.8) !important;
+          border: 1px solid rgba(102, 252, 241, 0.15); /* Accent color border */
+          color: #f8f9fa; /* Light text in cards */
+      }
+
+      .card-title {
+          color: #66fcf1; /* Vibrant cyan/aqua for card titles */
+      }
+
       .project-card-tech {
         font-size: 0.9em;
-        color: #6c757d; /* Bootstrap's text-muted color */
+        color: #c5c6c7; /* Lighter muted color */
       }
+
+      #contact ul {
+        list-style: none;
+        padding-left: 0;
+      }
+      #contact li {
+        margin-bottom: 0.5rem;
+      }
+      #contact a {
+          color: #66fcf1; /* Vibrant cyan/aqua */
+          text-decoration: none;
+      }
+      #contact a:hover {
+          color: #a6fcf5; /* Lighter cyan on hover */
+          text-decoration: underline;
+      }
+
+      footer {
+          /* Accent color border */
+          border-top: 1px solid rgba(102, 252, 241, 0.15) !important;
+      }
+      .text-body-secondary {
+          color: #ced4da !important; /* Lighter secondary text */
+      }
+
       /* Style for the typing cursor */
       .typed-cursor {
         opacity: 1;
         font-weight: 100;
+        color: #fff; /* Make cursor white */
         animation: blink 0.7s infinite;
       }
       @keyframes blink {
@@ -74,11 +162,12 @@
       <p>
         Welcome! I'm a passionate Computer Science student at the University of Michigan with a strong interest in web development, machine learning, and software engineering. I enjoy building practical applications and exploring new technologies. In my free time, I play in the orchestra and enjoy basketball.
       </p>
+      <h2>}</h2>
     </div>
 
     <!-- Education Section -->
     <div class="container my-5" id="education" data-aos="fade-up">
-      <h2 class="pb-2 border-bottom">Education</h2>
+      <h2 class="pb-2 border-bottom">Education {</h2>
       <div class="card mb-3">
         <div class="card-body">
           <h5 class="card-title">University of Michigan</h5>
@@ -91,11 +180,12 @@
           </p>
         </div>
       </div>
+      <h2>}</h2>
     </div>
 
     <!-- Projects Section -->
     <div class="container my-5" id="projects" data-aos="fade-up">
-      <h2 class="pb-2 border-bottom">Projects</h2>
+      <h2 class="pb-2 border-bottom">Projects {</h2>
       <div class="row row-cols-1 row-cols-md-2 g-4">
 
         <!-- Project 1: Karaoke -->
@@ -148,11 +238,13 @@
         </div>
 
       </div> <!-- /row -->
+      <h2>}</h2>
     </div> <!-- /container#projects -->
+
 
     <!-- Contact Section -->
     <div class="container my-5" id="contact" data-aos="fade-up">
-      <h2 class="pb-2 border-bottom">Contact</h2>
+      <h2 class="pb-2 border-bottom">Contact {</h2>
       <p>Feel free to reach out!</p>
       <ul>
         <li><strong>Email:</strong> <a href="mailto:ssbhide@umich.edu">ssbhide@umich.edu</a></li>
@@ -160,6 +252,7 @@
         <li><strong>GitHub:</strong> <a href="https://github.com/ssbhide" target="_blank">github.com/ssbhide</a></li>
         <!-- Add other contact methods if desired -->
       </ul>
+      <h2>}</h2>
     </div>
 
     <!-- Footer -->
@@ -184,7 +277,7 @@
       const typedTextSpan = document.getElementById("typed-text");
       const cursorSpan = document.querySelector(".typed-cursor");
 
-      const words = ["Student", "Software Developer", "Violinist"];
+      const words = ["Student {", "Software Developer {", "Violinist {", "Tech Enthusiast {", "Innovator {", "Creator {"];
       const typingDelay = 150;
       const erasingDelay = 100;
       const newWordDelay = 2000; // Delay between current and next word
