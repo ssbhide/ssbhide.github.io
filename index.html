@@ -9,7 +9,15 @@
     <style>
       /* Optional: Add some custom styles */
       html {
-        scroll-padding-top: 70px; /* Adjust this value based on your navbar's height */
+        /* Default scroll padding for larger screens */
+        scroll-padding-top: 70px; /* Adjust this value based on your desktop navbar's height */
+      }
+
+      /* Adjust scroll padding for smaller screens (below 992px) */
+      @media (max-width: 991.98px) {
+        html {
+          scroll-padding-top: 56px; /* Adjust this value based on your mobile navbar's height */
+        }
       }
 
       body {
