@@ -10,13 +10,14 @@
       /* Optional: Add some custom styles */
       html {
         /* Default scroll padding for larger screens */
-        scroll-padding-top: 70px; /* Adjust this value based on your desktop navbar's height */
+        scroll-padding-top: 100px; /* Increased padding */
+        scroll-behavior: smooth; /* Add smooth scrolling */
       }
 
       /* Adjust scroll padding for smaller screens (below 992px) */
       @media (max-width: 991.98px) {
         html {
-          scroll-padding-top: 250px; /* Further adjusted mobile navbar height */
+          scroll-padding-top: 300px; /* Increased padding for mobile */
         }
       }
 
@@ -138,6 +139,9 @@
               <a class="nav-link" href="#education">Education</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="#experience">Experience</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="#projects">Projects</a>
             </li>
             <li class="nav-item">
@@ -187,6 +191,24 @@
           </p>
           <p class="card-text">
             <strong>Relevant Coursework:</strong> Data Structures and Algorithms (C++), Web Systems (Python, HTML/CSS/JS), Computer Organization (C), Data-Driven Web Applications (Python, Django), Foundations of Computer Science
+          </p>
+        </div>
+      </div>
+      <h2>}</h2>
+    </div>
+
+    <!-- Experience Section -->
+    <div class="container my-5" id="experience" data-aos="fade-up">
+      <h2 class="pb-2 border-bottom">Experience {</h2>
+      <div class="card mb-3">
+        <div class="card-body position-relative">
+          <h5 class="card-title">GreeLancer</h5>
+          <h6 class="card-subtitle position-absolute top-0 end-0 mt-3 me-3">Summer 2025</h6>
+          <p class="card-text">
+            <strong>Technology Intern</strong>
+          </p>
+          <p class="card-text">
+            Incoming Technology Intern for Summer 2025.
           </p>
         </div>
       </div>
@@ -277,20 +299,32 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init({
-        duration: 800, // values from 0 to 3000, with step 50ms
-        once: true, // whether animation should happen only once - while scrolling down
+        duration: 800,
+        once: true,
+        offset: 100, // Add offset to trigger animations earlier
+        delay: 0, // Remove any delay in animations
       });
 
-      // Close navbar on mobile link click
+      // Close navbar on mobile link click and handle smooth scrolling
       const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
       const menuToggle = document.getElementById('navbarNav');
       const bsCollapse = new bootstrap.Collapse(menuToggle, { toggle: false });
+      
       navLinks.forEach((link) => {
-          link.addEventListener('click', () => {
+          link.addEventListener('click', (e) => {
+              e.preventDefault();
+              const targetId = link.getAttribute('href');
+              const targetElement = document.querySelector(targetId);
+              
               // Check if the navbar collapse element is currently shown
               if (menuToggle.classList.contains('show')) {
                   bsCollapse.toggle();
               }
+
+              // Wait for any animations to complete before scrolling
+              setTimeout(() => {
+                  targetElement.scrollIntoView({ behavior: 'smooth' });
+              }, 100);
           });
       });
     </script>
