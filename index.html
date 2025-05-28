@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sarang Bhide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+      :root {
+        --primary-bg: #1a1a2e;
+        --secondary-bg: #16213e;
+        --accent-color: #9370db;
+        --accent-hover: #b19cd9;
+        --text-color: #f8f9fa;
+        --card-bg: rgba(26, 26, 46, 0.8);
+        --navbar-bg: rgba(26, 26, 46, 0.95);
+        --border-color: rgba(147, 112, 219, 0.3);
+      }
+
+      html {
+        scroll-padding-top: 100px;
+        scroll-behavior: smooth;
+      }
+
+      @media (max-width: 991.98px) {
+        html {
+          scroll-padding-top: 300px;
+        }
+      }
+
+      body {
+        background: linear-gradient(to right, var(--primary-bg), var(--secondary-bg));
+        color: var(--text-color);
+      }
+
+      #particles-js {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .navbar {
+        background-color: var(--navbar-bg) !important;
+        backdrop-filter: blur(5px);
+      }
+
+      .nav-link {
+        color: rgba(255, 255, 255, 0.85) !important;
+      }
+      .nav-link:hover, .navbar-brand:hover {
+        color: #fff !important;
+      }
+      .navbar-brand {
+        color: #fff !important;
+      }
+
+      .bg-body-tertiary {
+        background-color: var(--card-bg) !important;
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+      }
+
+      .text-body-emphasis {
+          color: var(--text-color) !important;
+      }
+
+      .lead {
+          color: var(--text-color) !important;
+      }
+
+      h2 {
+        color: var(--text-color);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      }
+
+      .border-bottom {
+          border-bottom: 1px solid var(--border-color) !important;
+      }
+
+      .card {
+          background-color: var(--card-bg) !important;
+          border: 1px solid var(--border-color);
+          color: var(--text-color);
+      }
+
+      .card-title {
+          color: var(--accent-color);
+      }
+
+      .project-card-tech {
+        font-size: 0.9em;
+        color: #c5c6c7;
+      }
+
+      #contact ul {
+        list-style: none;
+        padding-left: 0;
+      }
+      #contact li {
+        margin-bottom: 0.5rem;
+      }
+      #contact a {
+          color: var(--accent-color);
+          text-decoration: none;
+      }
+      #contact a:hover {
+          color: var(--accent-hover);
+          text-decoration: underline;
+      }
+
+      footer {
+          border-top: 1px solid var(--border-color) !important;
+      }
+      .text-body-secondary {
+          color: #ced4da !important;
+      }
+
+      .typed-cursor {
+        opacity: 1;
+        font-weight: 100;
+        color: var(--text-color);
+        animation: blink 0.7s infinite;
+      }
+      @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="particles-js"></div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Sarang Bhide</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About Me</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#education">Education</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#experience">Experience</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#projects">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <div class="p-5 text-center bg-body-tertiary rounded-3">
+        <h1 class="text-body-emphasis">Sarang Bhide</h1>
+        <p class="lead">
+          Computer Science Student | University of Michigan
+          <br>
+          Welcome to my personal website showcasing my education and projects.
+        </p>
+        <!-- <a href="#" class="btn btn-primary btn-lg">View Resume</a> -->
+      </div>
+    </div>
+
+    <div class="container my-5" id="about" data-aos="fade-up">
+      <h2 class="pb-2 border-bottom"><span id="typed-text"></span><span class="typed-cursor">|</span></h2>
+      <p>
+        Welcome! I'm a passionate Computer Science student at the University of Michigan with a strong interest in web development, machine learning, and software engineering. I enjoy building practical applications and exploring new technologies. In my free time, I play in the orchestra and enjoy basketball.
+      </p>
+      <h2>}</h2>
+    </div>
+
+    <div class="container my-5" id="education" data-aos="fade-up">
+      <h2 class="pb-2 border-bottom">Education {</h2>
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2">
+            <h5 class="card-title mb-2 mb-md-0">University of Michigan</h5>
+            <h6 class="card-subtitle text-md-end">Expected May 2027</h6>
+          </div>
+          <p class="card-text">
+            <strong>Bachelor of Science in Computer Science</strong>
+          </p>
+          <p class="card-text">
+            <strong>Relevant Coursework:</strong> Data Structures and Algorithms (C++), Web Systems (Python, HTML/CSS/JS), Computer Organization (C), Data-Driven Web Applications (Python, Django), Foundations of Computer Science
+          </p>
+        </div>
+      </div>
+      <h2>}</h2>
+    </div>
+
+    <!-- Experience -->
+    <div class="container my-5" id="experience" data-aos="fade-up">
+      <h2 class="pb-2 border-bottom">Experience {</h2>
+      <div class="card mb-3">
+        <div class="card-body position-relative">
+          <h5 class="card-title">GreenLancer</h5>
+          <h6 class="card-subtitle position-absolute top-0 end-0 mt-3 me-3">Summer 2025</h6>
+          <p class="card-text">
+            <strong>Software Engineer Intern</strong>
+          </p>
+          <p class="card-text">
+            Incoming Summer 2025
+          </p>
+        </div>
+      </div>
+      <h2>}</h2>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="container my-5" id="projects" data-aos="fade-up">
+      <h2 class="pb-2 border-bottom">Projects {</h2>
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+
+        <!-- Project 1: Karaoke -->
+        <div class="col" data-aos="fade-up" data-aos-delay="100">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Karaoke</h5>
+              <p class="project-card-tech mb-2">Python, Flask, Demucs, Docker, Machine Learning, Audio Processing</p>
+              <p class="card-text flex-grow-1">Designed and implemented an audio processing tool to isolate vocal audio from recordings, enabling musicians to practice with instrumental accompaniment. Utilized Demucs for music source separation. Developed preprocessing/postprocessing pipelines for various audio formats. Enhanced understanding of signal processing, ML frameworks, and audio AI deployment.</p>
+              <!-- <a href="#" class="btn btn-outline-primary mt-auto">View Code</a> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Instagram Clone -->
+        <div class="col" data-aos="fade-up" data-aos-delay="200">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Instagram Clone</h5>
+              <p class="project-card-tech mb-2">Python, JavaScript, Flask, HTML/CSS, SQL, React.js, AWS, REST API</p>
+              <p class="card-text flex-grow-1">Developed a full-stack web application replicating core Instagram functionalities (auth, uploads, likes, comments). Implemented RESTful APIs for front-end/back-end communication. Optimized MySQL database queries for performance and scalability.</p>
+              <!-- <a href="#" class="btn btn-outline-primary mt-auto">View Code</a> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: Portfolio Website -->
+        <div class="col" data-aos="fade-up" data-aos-delay="300">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Portfolio Website</h5>
+              <p class="project-card-tech mb-2">HTML, CSS, JavaScript, Bootstrap, Github Pages</p>
+              <p class="card-text flex-grow-1">Designed and developed a responsive portfolio website to showcase projects, skills, and contact information using modern web technologies. Built the frontend with Bootstrap for a clean, user-friendly design and seamless navigation.</p>
+              <!-- <a href="#" class="btn btn-outline-primary mt-auto">View Code</a> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: Search Engine -->
+        <div class="col" data-aos="fade-up" data-aos-delay="400">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Search Engine</h5>
+              <p class="project-card-tech mb-2">Python, Flask, SQL, Hadoop, REST API</p>
+              <p class="card-text flex-grow-1">Developed a scalable search engine using a segmented inverted index and MapReduce pipeline for efficient web page processing/indexing. Implemented REST API-based Index servers (Flask) to query data, integrating tf-idf and PageRank. Designed a UI with server-side dynamic pages fetching/merging parallel backend responses.</p>
+              <!-- <a href="#" class="btn btn-outline-primary mt-auto">View Code</a> -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <h2>}</h2>
+    </div>
+
+
+    <div class="container my-5" id="contact" data-aos="fade-up">
+      <h2 class="pb-2 border-bottom">Contact {</h2>
+      <p>Feel free to reach out!</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:ssbhide@umich.edu">ssbhide@umich.edu</a></li>
+        <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/sarangbhide" target="_blank">linkedin.com/in/sarangbhide</a></li>
+        <li><strong>GitHub:</strong> <a href="https://github.com/ssbhide" target="_blank">github.com/ssbhide</a></li>
+      </ul>
+      <h2>}</h2>
+    </div>
+
+    <footer class="py-3 my-4 border-top">
+      <div class="container">
+        <p class="text-center text-body-secondary">&copy; 2025 Sarang Bhide</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+      const themes = [
+        {
+          name: 'Wakanda',
+          primaryBg: '#000000',
+          secondaryBg: '#1a1a1a',
+          accentColor: '#9b4dca',
+          accentHover: '#b07ad9',
+          particleColors: ['#9b4dca', '#b07ad9', '#c59ee6', '#d9c2f0', '#f2e6ff']
+        },
+        {
+          name: 'Cyan',
+          primaryBg: '#2a2d4e',
+          secondaryBg: '#3a3f6e',
+          accentColor: '#66fcf1',
+          accentHover: '#a6fcf5',
+          particleColors: ['#66fcf1', '#45b7af', '#7b68ee', '#9370db', '#8a2be2']
+        },
+        {
+          name: 'Ocean',
+          primaryBg: '#0a192f',
+          secondaryBg: '#112240',
+          accentColor: '#64ffda',
+          accentHover: '#9efff0',
+          particleColors: ['#64ffda', '#4cc9f0', '#4895ef', '#4361ee', '#3f37c9']
+        },
+        {
+          name: 'Sunset',
+          primaryBg: '#2d1b2e',
+          secondaryBg: '#3d2b3e',
+          accentColor: '#ff6b6b',
+          accentHover: '#ff8e8e',
+          particleColors: ['#ff6b6b', '#ff8e8e', '#ffa5a5', '#ffc3c3', '#ffd8d8']
+        },
+        {
+          name: 'Black & Blue',
+          primaryBg: '#000000',
+          secondaryBg: '#232946',
+          accentColor: '#3aefff',
+          accentHover: '#8fffff',
+          particleColors: ['#3aefff', '#8fffff', '#b8fff9', '#232946', '#a6e3e9']
+        },
+        {
+          name: 'Midnight',
+          primaryBg: '#0d1117',
+          secondaryBg: '#161b22',
+          accentColor: '#58a6ff',
+          accentHover: '#79b8ff',
+          particleColors: ['#58a6ff', '#79b8ff', '#9ecbff', '#c2dfff', '#e6f3ff']
+        }
+      ];
+
+      function setTheme(theme) {
+        document.documentElement.style.setProperty('--primary-bg', theme.primaryBg);
+        document.documentElement.style.setProperty('--secondary-bg', theme.secondaryBg);
+        document.documentElement.style.setProperty('--accent-color', theme.accentColor);
+        document.documentElement.style.setProperty('--accent-hover', theme.accentHover);
+        document.documentElement.style.setProperty('--card-bg', theme.primaryBg + 'cc');
+        document.documentElement.style.setProperty('--navbar-bg', theme.primaryBg + 'f2');
+        document.documentElement.style.setProperty('--border-color', theme.accentColor + '4d');
+        
+        particlesJS('particles-js', {
+          particles: {
+            number: {
+              value: 80,
+              density: {
+                enable: true,
+                value_area: 800
+              }
+            },
+            color: {
+              value: theme.particleColors
+            },
+            shape: {
+              type: 'circle'
+            },
+            opacity: {
+              value: 0.6,
+              random: true,
+              anim: {
+                enable: true,
+                speed: 1,
+                opacity_min: 0.1,
+                sync: false
+              }
+            },
+            size: {
+              value: 3,
+              random: true,
+              anim: {
+                enable: true,
+                speed: 2,
+                size_min: 0.1,
+                sync: false
+              }
+            },
+            line_linked: {
+              enable: true,
+              distance: 150,
+              color: theme.accentColor,
+              opacity: 0.4,
+              width: 1
+            },
+            move: {
+              enable: true,
+              speed: 2,
+              direction: 'none',
+              random: true,
+              straight: false,
+              out_mode: 'out',
+              bounce: false,
+              attract: {
+                enable: true,
+                rotateX: 600,
+                rotateY: 1200
+              }
+            }
+          },
+          interactivity: {
+            detect_on: 'canvas',
+            events: {
+              onhover: {
+                enable: true,
+                mode: 'grab'
+              },
+              onclick: {
+                enable: false
+              },
+              resize: true
+            },
+            modes: {
+              grab: {
+                distance: 140,
+                line_linked: {
+                  opacity: 1
+                }
+              }
+            }
+          },
+          retina_detect: true
+        });
+      }
+      // randomize theme
+      document.addEventListener('DOMContentLoaded', function() {
+        const hasVisited = sessionStorage.getItem('hasVisited');
+        
+        if (!hasVisited) {
+          // show wakanda theme
+          setTheme(themes[0]);
+          sessionStorage.setItem('hasVisited', 'true');
+        } else {
+          const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+          setTheme(randomTheme);
+        }
+      });
+
+      // Make stuff appear
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100,
+        delay: 0
+      });
+
+      // Close navbar on mobile link click
+      const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+      const menuToggle = document.getElementById('navbarNav');
+      const bsCollapse = new bootstrap.Collapse(menuToggle, { toggle: false });
+      navLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+              if (menuToggle.classList.contains('show')) {
+                  bsCollapse.toggle();
+              }
+          });
+      });
+    </script>
+
+    <!-- TYPING EFFECT!!!! -->
+    <script>
+      const typedTextSpan = document.getElementById("typed-text");
+      const cursorSpan = document.querySelector(".typed-cursor");
+
+      const words = ["Student {", "Software Developer {", "Violinist {", "Tech Enthusiast {", "Innovator {", "Creator {"];
+      const typingDelay = 150;
+      const erasingDelay = 100;
+      const newWordDelay = 2000;
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      function typeEffect() {
+        const currentWord = words[wordIndex];
+
+        if (isDeleting) {
+          // Remove char
+          typedTextSpan.textContent = currentWord.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          // Add char
+          typedTextSpan.textContent = currentWord.substring(0, charIndex + 1);
+          charIndex++;
+        }
+
+        let delay = isDeleting ? erasingDelay : typingDelay;
+
+        if (!isDeleting && charIndex === currentWord.length) {
+          // Pause at end of word
+          delay = newWordDelay;
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          // Move to next word
+          isDeleting = false;
+          wordIndex++;
+          if (wordIndex === words.length) {
+            wordIndex = 0;
+          }
+          delay = typingDelay / 2; // Slightly faster start for next word
+        }
+
+        setTimeout(typeEffect, delay);
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        if(words.length) setTimeout(typeEffect, newWordDelay + 250);
+      });
+    </script>
+  </body>
+</html>
