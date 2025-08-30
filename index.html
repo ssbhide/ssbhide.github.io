@@ -1,576 +1,537 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sarang Bhide</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarang Bhide | Interactive Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --primary-bg: #1a1a2e;
-        --secondary-bg: #16213e;
-        --accent-color: #9370db;
-        --accent-hover: #b19cd9;
-        --text-color: #f8f9fa;
-        --card-bg: rgba(26, 26, 46, 0.8);
-        --navbar-bg: rgba(26, 26, 46, 0.95);
-        --border-color: rgba(147, 112, 219, 0.3);
-      }
-
-      html {
-        scroll-padding-top: 100px;
-        scroll-behavior: smooth;
-      }
-
-      @media (max-width: 991.98px) {
-        html {
-          scroll-padding-top: 300px;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #2C3E50;
         }
-      }
-
-      body {
-        background: linear-gradient(to right, var(--primary-bg), var(--secondary-bg));
-        color: var(--text-color);
-      }
-
-      #particles-js {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        pointer-events: none;
-      }
-
-      .navbar {
-        background-color: var(--navbar-bg) !important;
-        backdrop-filter: blur(5px);
-      }
-
-      .nav-link {
-        color: rgba(255, 255, 255, 0.85) !important;
-      }
-      .nav-link:hover, .navbar-brand:hover {
-        color: #fff !important;
-      }
-      .navbar-brand {
-        color: #fff !important;
-      }
-
-      .bg-body-tertiary {
-        background-color: var(--card-bg) !important;
-        border: 1px solid var(--border-color);
-        color: var(--text-color);
-      }
-
-      .text-body-emphasis {
-          color: var(--text-color) !important;
-      }
-
-      .lead {
-          color: var(--text-color) !important;
-      }
-
-      h2 {
-        color: var(--text-color);
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-      }
-
-      .border-bottom {
-          border-bottom: 1px solid var(--border-color) !important;
-      }
-
-      .card {
-          background-color: var(--card-bg) !important;
-          border: 1px solid var(--border-color);
-          color: var(--text-color);
-      }
-
-      .card-title {
-          color: var(--accent-color);
-      }
-
-      .project-card-tech {
-        font-size: 0.9em;
-        color: #c5c6c7;
-      }
-
-      .btn-outline-primary {
-        border-color: var(--border-color) !important;
-        color: var(--accent-color) !important;
-      }
-
-      .btn-outline-primary:hover {
-        background-color: var(--accent-color) !important;
-        border-color: var(--accent-color) !important;
-        color: var(--primary-bg) !important;
-      }
-
-      #contact ul {
-        list-style: none;
-        padding-left: 0;
-      }
-      #contact li {
-        margin-bottom: 0.5rem;
-      }
-      #contact a {
-          color: var(--accent-color);
-          text-decoration: none;
-      }
-      #contact a:hover {
-          color: var(--accent-hover);
-          text-decoration: underline;
-      }
-
-      footer {
-          border-top: 1px solid var(--border-color) !important;
-      }
-      .text-body-secondary {
-          color: #ced4da !important;
-      }
-
-      .typed-cursor {
-        opacity: 1;
-        font-weight: 100;
-        color: var(--text-color);
-        animation: blink 0.7s infinite;
-      }
-      @keyframes blink {
-        0% { opacity: 1; }
-        50% { opacity: 0; }
-        100% { opacity: 1; }
-      }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #4DB6AC;
+        }
+        .active-tab {
+            border-bottom: 2px solid #4DB6AC;
+            color: #4DB6AC;
+            font-weight: 500;
+        }
+        .project-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .terminal-container {
+            font-family: monospace;
+            background-color: #0d0d0d;
+            color: #48bb78;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid #333;
+        }
+        .terminal-output {
+            min-height: 100px;
+            max-height: 250px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            margin-bottom: 0.5rem;
+            line-height: 1.25;
+            -webkit-overflow-scrolling: touch;
+        }
+        .terminal-prompt {
+            color: #ffffff;
+        }
+        .terminal-user {
+            color: #48bb78;
+        }
+        .terminal-symbol {
+            color: #8A4E9E;
+        }
+        .terminal-prompt-container {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .terminal-input {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            width: calc(100% - 1.5rem);
+            caret-color: #ffffff;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #222;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #8A4E9E;
+            border-radius: 10px;
+            border: 2px solid #222;
+        }
+        .output-line {
+            line-height: 1.5;
+        }
+        .output-title {
+            color: #ffffff;
+        }
+        .output-indent {
+            margin-left: 20px;
+        }
     </style>
-  </head>
-  <body>
-    <div id="particles-js"></div>
+</head>
+<body class="antialiased">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Sarang Bhide</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#about">About Me</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#education">Education</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#experience">Experience</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#projects">Projects</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-800">Sarang Bhide</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#experience" class="nav-link text-gray-600">Experience</a>
+                <a href="#education" class="nav-link text-gray-600">Education</a>
+                <a href="#projects" class="nav-link text-gray-600">Projects</a>
+                <a href="#skills" class="nav-link text-gray-600">Skills</a>
+            </div>
+        </nav>
+    </header>
 
-    <div class="container my-5">
-      <div class="p-5 text-center bg-body-tertiary rounded-3">
-        <h1 class="text-body-emphasis">Sarang Bhide</h1>
-        <p class="lead">
-          Computer Science Student | University of Michigan
-          <br>
-          Welcome to my personal website showcasing my education and projects.
-        </p>
-                        <p style="color: var(--accent-color); font-style: italic; text-align: center; margin-top: 1rem;">
-        reload this page for a surprise!
-      </p>
-      <div class="d-flex justify-content-center gap-3 mt-3">
-        <a href="https://github.com/ssbhide" target="_blank" style="color: white; text-decoration: none;">
-          <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-          </svg>
-        </a>
-        <a href="https://linkedin.com/in/sarangbhide" target="_blank" style="color: white; text-decoration: none;">
-          <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
-          </svg>
-        </a>
-      </div>
-        <!-- <a href="#" class="btn btn-primary btn-lg">View Resume</a> -->
-      </div>
-    </div>
-
-    <div class="container my-5" id="about" data-aos="fade-up">
-      <h2 class="pb-2 border-bottom"><span id="typed-text"></span><span class="typed-cursor">|</span></h2>
-      <p>
-        Welcome! I'm a passionate Computer Science student at the University of Michigan with a strong interest in web development, machine learning, and software engineering. I enjoy building practical applications and exploring new technologies. In my free time, I play in the orchestra and enjoy basketball.
-      </p>
-      <h2>}</h2>
-    </div>
-
-    <div class="container my-5" id="education" data-aos="fade-up">
-      <h2 class="pb-2 border-bottom">Education {</h2>
-      <div class="card mb-3">
-        <div class="card-body">
-          <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2">
-            <h5 class="card-title mb-2 mb-md-0">University of Michigan</h5>
-            <h6 class="card-subtitle text-md-end">Expected May 2027</h6>
-          </div>
-          <p class="card-text">
-            <strong>Bachelor of Science in Computer Science</strong>
-          </p>
-          <p class="card-text">
-            <strong>Relevant Coursework:</strong> Data Structures and Algorithms (C++), Web Systems (Python, HTML/CSS/JS), Computer Organization (C), Data-Driven Web Applications (Python, Django), Foundations of Computer Science
-          </p>
-        </div>
-      </div>
-      <h2>}</h2>
-    </div>
-
-    <!-- Experience -->
-    <div class="container my-5" id="experience" data-aos="fade-up">
-      <h2 class="pb-2 border-bottom">Experience {</h2>
-      <div class="card mb-3">
-        <div class="card-body position-relative">
-          <h5 class="card-title">GreenLancer</h5>
-          <h6 class="card-subtitle position-absolute top-0 end-0 mt-3 me-3">Summer 2025</h6>
-          <p class="card-text">
-            <strong>Software Engineer Intern</strong>
-          </p>
-                      <p class="card-text">
-              <ul>
-                <li>Spearheaded backend integration for a real-time Activity Feed system across projects, tasks, and tickets, improving transparency and debugging efficiency by reducing investigation time for user-reported errors by 20%</li>
-                <li>Designed and implemented robust SQL Server data models and query logic for comprehensive event history tracking, facilitating the logging of over 10,000 unique user actions and project updates monthly</li>
-                <li>Deployed features to a live beta environment using GitHub Actions, and led the deployment walkthrough with QA and external users, contributing to a smoother rollout process with a 25% reduction in post-deployment bug reports</li>
-              </ul>
+    <main class="container mx-auto px-6 py-12">
+        <section id="hero" class="text-center mb-20">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">Software Engineer</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Hi there! I'm a Computer Science student at the University of Michigan with a passion for building scalable web applications and leveraging data to create impactful software solutions. I have experience in full-stack development, CI/CD practices, and collaborative team environments, and I look forward to making an impact in the real world.
             </p>
-        </div>
-      </div>
-      <h2>}</h2>
-    </div>
+        </section>
 
-    <!-- Projects Section -->
-    <div class="container my-5" id="projects" data-aos="fade-up">
-      <h2 class="pb-2 border-bottom">Projects {</h2>
-      <div class="row row-cols-1 row-cols-md-2 g-4">
-
-        <!-- Project 1: Karaoke -->
-        <div class="col" data-aos="fade-up" data-aos-delay="100">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Karaoke</h5>
-              <p class="project-card-tech mb-2">TypeScript, Flask, Demucs, Docker, Machine Learning, Audio Processing</p>
-              <p class="card-text flex-grow-1">Designed and implemented an audio processing tool to isolate vocal audio from recordings, enabling musicians to practice with instrumental accompaniment. Utilized Demucs for music source separation. Developed preprocessing/postprocessing pipelines for various audio formats. Enhanced understanding of signal processing, ML frameworks, and audio AI deployment.</p>
-              <div class="mt-auto pt-3">
-                <div class="d-flex flex-column flex-sm-row gap-2">
-                  <a href="https://github.com/ssbhide/karaoke" target="_blank" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center gap-2">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-                    </svg>
-                    GitHub
-                  </a>
-                  <a href="https://karaoke-lake.vercel.app/" target="_blank" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center gap-2">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                      <path d="M1.5 1.5A.5.5 0 0 1 2 1h2.5A.5.5 0 0 1 5 1.5v2.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V1.5ZM6 1.5A.5.5 0 0 1 6.5 1h2.5a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 1-.5.5H6.5a.5.5 0 0 1-.5-.5V1.5ZM1 6.5A.5.5 0 0 1 1.5 6h2.5a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 1-.5.5H1.5a.5.5 0 0 1-.5-.5V6.5ZM6.5 6a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 1-.5.5H4a.5.5 0 0 1-.5-.5V6.5a.5.5 0 0 1 .5-.5h2.5Z"/>
-                    </svg>
-                    Live Demo
-                  </a>
+        <section id="terminal-section" class="mb-20">
+            <h3 class="text-3xl font-bold text-center mb-6">Interactive Terminal</h3>
+            <div class="container mx-auto px-6 py-6 mt-4">
+                <div class="terminal-container">
+                    <div class="terminal-output" id="terminal-output"></div>
+                    <div class="terminal-prompt-container">
+                        <span class="terminal-prompt">[</span>
+                        <span class="terminal-user">guest</span>
+                        <span class="terminal-prompt">@</span>
+                        <span class="terminal-user">ssbhide.github.io</span>
+                        <span class="terminal-prompt">] ~ </span>
+                        <span class="terminal-symbol">$</span>
+                        <span class="terminal-prompt"> </span>
+                        <input type="text" id="terminal-input" class="terminal-input">
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
+        </section>
 
-        <!-- Project 2: Instagram Clone -->
-        <div class="col" data-aos="fade-up" data-aos-delay="200">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Instagram Clone</h5>
-              <p class="project-card-tech mb-2">Python, JavaScript, Flask, HTML/CSS, SQL, React.js, AWS, REST API</p>
-              <p class="card-text flex-grow-1">Developed a full-stack web application replicating core Instagram functionalities (auth, uploads, likes, comments). Implemented RESTful APIs for front-end/back-end communication. Optimized MySQL database queries for performance and scalability.</p>
-              <!-- <a href="#" class="btn btn-outline-primary mt-auto">View Code</a> -->
+        <section id="experience" class="mb-20">
+            <h3 class="text-3xl font-bold text-center mb-12">Professional Experience</h3>
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-8 border-b border-gray-200">
+                    <nav class="flex space-x-8" aria-label="Tabs">
+                        <button id="tab-greenlancer" class="py-4 px-1 text-gray-500 hover:text-gray-700 text-lg">GreenLancer</button>
+                        <button id="tab-umich" class="py-4 px-1 text-gray-500 hover:text-gray-700 text-lg">University of Michigan</button>
+                    </nav>
+                </div>
+
+                <div id="content-greenlancer" class="space-y-4">
+                    <h4 class="text-2xl font-semibold">Software Engineer Intern</h4>
+                    <p class="text-gray-600">Collaborated with cross-functional teams (product and QA) to spearhead backend integration for a real-time Activity Feed, improving system transparency and reducing investigation time for user-reported errors by 20%.</p>
+                    <p class="text-gray-600">Designed and implemented robust SQL Server data models to track over 10,000 unique user actions monthly, providing a comprehensive and scalable data foundation for internal business intelligence tools.</p>
+                    <p class="text-gray-600">Contributed to CI/CD practices by automating feature deployment to a live beta environment using GitHub Actions, and led deployment walkthroughs with QA and external users, which reduced post-deployment bug reports by 25%.</p>
+                </div>
+
+                <div id="content-umich" class="hidden space-y-4">
+                    <h4 class="text-2xl font-semibold">Instructional Aide</h4>
+                    <p class="text-gray-600">Fostered a collaborative learning environment by leading weekly discussion sections for over 50 students, translating complex web systems concepts into practical skills for application development.</p>
+                    <p class="text-gray-600">Partnered with a team of instructional staff to evaluate over 100 student projects per semester, providing targeted feedback on coding practices and streamlining the autograding pipeline to enhance grading efficiency.</p>
+                    <p class="text-600">Facilitated troubleshooting sessions for students, creating live demos that reduced common debugging and deployment issues by an estimated 25% and saved valuable class time.</p>
+                </div>
             </div>
-          </div>
-        </div>
-
-        <!-- Project 3: Portfolio Website -->
-        <div class="col" data-aos="fade-up" data-aos-delay="300">
-          <a href="https://ssbhide.github.io" style="text-decoration: none; color: inherit;">
-            <div class="card h-100" style="cursor: pointer; transition: transform 0.2s;">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Portfolio Website</h5>
-                <p class="project-card-tech mb-2">HTML, CSS, JavaScript, Bootstrap, Github Pages</p>
-                <p class="card-text flex-grow-1">Designed and developed a responsive portfolio website to showcase projects, skills, and contact information using modern web technologies. Built the frontend with Bootstrap for a clean, user-friendly design and seamless navigation.</p>
-                <!-- <a href="#" class="btn btn-outline-primary mt-auto">View Code</a> -->
-              </div>
+            <div class="mt-16" id="education">
+                <h4 class="text-2xl font-bold text-center mb-6">Education</h4>
+                <div class="max-w-5xl mx-auto">
+                    <!-- Main Education Card -->
+                    <div class="bg-gradient-to-br from-blue-50 to-teal-50 rounded-2xl p-8 shadow-lg border border-blue-100 mb-8">
+                        <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                            <!-- University Logo/Icon Area -->
+                            <div class="flex-shrink-0">
+                                <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
+                                    <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <!-- University Details -->
+                            <div class="text-center md:text-left flex-1">
+                                <h5 class="text-2xl font-bold text-gray-800 mb-2">University of Michigan, Ann Arbor</h5>
+                                <p class="text-lg text-gray-700 mb-1">Bachelor of Science in Computer Science</p>
+                                <p class="text-gray-600 mb-4">Expected Graduation: May 2027</p>
+                                
+                                <!-- Progress indicator -->
+                                <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+                                    <div class="bg-gradient-to-r from-blue-500 to-teal-500 h-2 rounded-full" style="width: 75%"></div>
+                                </div>
+                                <p class="text-sm text-gray-500">75% Complete</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Activities and Courses Grid -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Extracurricular Activities -->
+                        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                            <div class="flex items-center mb-4">
+                                <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                                    </svg>
+                                </div>
+                                <h6 class="text-lg font-semibold text-gray-800">Extracurricular Activities</h6>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">Campus Orchestras</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">IM Basketball</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">IM Volleyball</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Relevant Coursework -->
+                        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                            <div class="flex items-center mb-4">
+                                <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <h6 class="text-lg font-semibold text-gray-800">Relevant Coursework</h6>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">Web Systems</span>
+                                    <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Completed</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">Data Structures and Algorithms</span>
+                                    <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Completed</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">Computer Organization</span>
+                                    <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Completed</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">Machine Learning</span>
+                                    <span class="ml-auto text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Current</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">Computer Networks</span>
+                                    <span class="ml-auto text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Current</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </a>
-        </div>
+        </section>
 
-        <!-- Project 4: Search Engine -->
-        <div class="col" data-aos="fade-up" data-aos-delay="400">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Search Engine</h5>
-              <p class="project-card-tech mb-2">Python, Flask, SQL, Hadoop, REST API</p>
-              <p class="card-text flex-grow-1">Developed a scalable search engine using a segmented inverted index and MapReduce pipeline for efficient web page processing/indexing. Implemented REST API-based Index servers (Flask) to query data, integrating tf-idf and PageRank. Designed a UI with server-side dynamic pages fetching/merging parallel backend responses.</p>
-              <!-- <a href="#" class="btn btn-outline-primary mt-auto">View Code</a> -->
+        <section id="projects" class="mb-20">
+            <h3 class="text-3xl font-bold text-center mb-12">Featured Projects</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-search')">
+                    <h4 class="text-xl font-bold mb-2">Scalable Search Engine</h4>
+                    <p class="text-gray-600 mb-4">A distributed search engine built to index and query millions of web pages with high performance.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
+                        <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Hadoop</span>
+                        <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Flask</span>
+                    </div>
+                </div>
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-instagram')">
+                    <h4 class="text-xl font-bold mb-2">Instagram Clone</h4>
+                    <p class="text-gray-600 mb-4">A full-stack web application with a scalable architecture replicating core Instagram features.</p>
+                     <div class="flex flex-wrap gap-2">
+                        <span class="bg-sky-100 text-sky-800 text-xs font-medium px-2.5 py-0.5 rounded-full">React.js</span>
+                        <span class="bg-sky-100 text-sky-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
+                        <span class="bg-sky-100 text-sky-800 text-xs font-medium px-2.5 py-0.5 rounded-full">AWS</span>
+                    </div>
+                </div>
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-karaoke')">
+                    <h4 class="text-xl font-bold mb-2">AI Karaoke Tool</h4>
+                    <p class="text-gray-600 mb-4">An audio processing tool using ML to isolate vocals from songs for instrumental accompaniment.</p>
+                     <div class="flex flex-wrap gap-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">TypeScript</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Next.js</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">ML</span>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
+            
+            <div id="project-details" class="mt-12">
+                <div id="project-search" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4">Scalable Search Engine</h4>
+                    <p class="text-gray-600 mb-2">Developed a highly scalable search engine architecture to process and index extensive collections of web pages (in the range of millions), designing a Hadoop-based MapReduce pipeline for efficient parallel processing.</p>
+                    <p class="text-gray-600 mb-2">Implemented performant REST API-based Index servers that seamlessly query vast indexed data and integrate advanced tf-idf and PageRank algorithms for robust, real-time search result ranking.</p>
+                    <p class="text-gray-600">Engineered a user interface to efficiently fetch and merge parallel responses from multiple distributed backend Index servers, ensuring rapid and accurate display of search results.</p>
+                </div>
+                <div id="project-instagram" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4">Instagram Clone</h4>
+                    <p class="text-gray-600 mb-2">Engineered a full-stack web application with a scalable architecture, processing thousands of daily photo uploads and user interactions with optimized API response times.</p>
+                    <p class="text-600 mb-2">Developed a highly performant RESTful API with Flask and Python, ensuring efficient data exchange with the React.js front-end and a MySQL database to support a high volume of concurrent users.</p>
+                    <p class="text-gray-600">Optimized database queries in MySQL to improve system performance and scalability, handling large datasets while maintaining application responsiveness.</p>
+                </div>
+                <div id="project-karaoke" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4">AI Karaoke Tool</h4>
+                    <p class="text-gray-600 mb-2">Developed an audio processing tool to isolate vocal audio from recordings, leveraging the Demucs open-source library to achieve high-fidelity audio separation.</p>
+                    <p class="text-gray-600">Engineered a robust preprocessing pipeline to handle various audio formats (MP3, WAV, etc.), ensuring data integrity and enabling the tool's reliable real-world deployment on Vercel.</p>
+                </div>
+            </div>
+        </section>
 
-      </div>
-      <h2>}</h2>
-    </div>
+        <section id="skills" class="mb-12">
+            <h3 class="text-3xl font-bold text-center mb-6">Technical Skills</h3>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-8">This chart provides an overview of my technical proficiencies. Use the filters to explore specific areas like languages, frontend frameworks, or backend technologies. This interactive view is designed to help you quickly identify the skills that align with your team's needs.</p>
+            <div class="text-center mb-8 space-x-2">
+                <button class="skill-filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full" data-filter="all">All</button>
+                <button class="skill-filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full" data-filter="language">Languages</button>
+                <button class="skill-filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full" data-filter="frontend">Frontend</button>
+                <button class="skill-filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full" data-filter="backend">Backend</button>
+                <button class="skill-filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full" data-filter="data">Data & Infra</button>
+            </div>
+            <div class="chart-container">
+                <canvas id="skillsChart"></canvas>
+            </div>
+        </section>
+    </main>
 
-
-    <div class="container my-5" id="contact" data-aos="fade-up">
-      <h2 class="pb-2 border-bottom">Contact {</h2>
-      <p>Feel free to reach out!</p>
-      <ul>
-        <li><strong>Email:</strong> <a href="mailto:ssbhide@umich.edu">ssbhide@umich.edu</a></li>
-        <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/sarangbhide" target="_blank">linkedin.com/in/sarangbhide</a></li>
-        <li><strong>GitHub:</strong> <a href="https://github.com/ssbhide" target="_blank">github.com/ssbhide</a></li>
-      </ul>
-      <h2>}</h2>
-    </div>
-
-    <footer class="py-3 my-4 border-top">
-      <div class="container">
-        <p class="text-center text-body-secondary">&copy; 2025 Sarang Bhide</p>
-      </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-      const themes = [
-        {
-          name: 'Wakanda',
-          primaryBg: '#000000',
-          secondaryBg: '#1a1a1a',
-          accentColor: '#9b4dca',
-          accentHover: '#b07ad9',
-          particleColors: ['#9b4dca', '#b07ad9', '#c59ee6', '#d9c2f0', '#f2e6ff']
-        },
-        {
-          name: 'Cyan',
-          primaryBg: '#2a2d4e',
-          secondaryBg: '#3a3f6e',
-          accentColor: '#66fcf1',
-          accentHover: '#a6fcf5',
-          particleColors: ['#66fcf1', '#45b7af', '#7b68ee', '#9370db', '#8a2be2']
-        },
-        {
-          name: 'Ocean',
-          primaryBg: '#0a192f',
-          secondaryBg: '#112240',
-          accentColor: '#64ffda',
-          accentHover: '#9efff0',
-          particleColors: ['#64ffda', '#4cc9f0', '#4895ef', '#4361ee', '#3f37c9']
-        },
-        {
-          name: 'Sunset',
-          primaryBg: '#2d1b2e',
-          secondaryBg: '#3d2b3e',
-          accentColor: '#ff6b6b',
-          accentHover: '#ff8e8e',
-          particleColors: ['#ff6b6b', '#ff8e8e', '#ffa5a5', '#ffc3c3', '#ffd8d8']
-        },
-        {
-          name: 'Black & Blue',
-          primaryBg: '#000000',
-          secondaryBg: '#232946',
-          accentColor: '#3aefff',
-          accentHover: '#8fffff',
-          particleColors: ['#3aefff', '#8fffff', '#b8fff9', '#232946', '#a6e3e9']
-        },
-        {
-          name: 'Midnight',
-          primaryBg: '#0d1117',
-          secondaryBg: '#161b22',
-          accentColor: '#58a6ff',
-          accentHover: '#79b8ff',
-          particleColors: ['#58a6ff', '#79b8ff', '#9ecbff', '#c2dfff', '#e6f3ff']
-        }
-      ];
+        document.addEventListener('DOMContentLoaded', function () {
 
-      function setTheme(theme) {
-        document.documentElement.style.setProperty('--primary-bg', theme.primaryBg);
-        document.documentElement.style.setProperty('--secondary-bg', theme.secondaryBg);
-        document.documentElement.style.setProperty('--accent-color', theme.accentColor);
-        document.documentElement.style.setProperty('--accent-hover', theme.accentHover);
-        document.documentElement.style.setProperty('--card-bg', theme.primaryBg + 'cc');
-        document.documentElement.style.setProperty('--navbar-bg', theme.primaryBg + 'f2');
-        document.documentElement.style.setProperty('--border-color', theme.accentColor + '4d');
-        
-        particlesJS('particles-js', {
-          particles: {
-            number: {
-              value: 80,
-              density: {
-                enable: true,
-                value_area: 800
-              }
-            },
-            color: {
-              value: theme.particleColors
-            },
-            shape: {
-              type: 'circle'
-            },
-            opacity: {
-              value: 0.6,
-              random: true,
-              anim: {
-                enable: true,
-                speed: 1,
-                opacity_min: 0.1,
-                sync: false
-              }
-            },
-            size: {
-              value: 3,
-              random: true,
-              anim: {
-                enable: true,
-                speed: 2,
-                size_min: 0.1,
-                sync: false
-              }
-            },
-            line_linked: {
-              enable: true,
-              distance: 150,
-              color: theme.accentColor,
-              opacity: 0.4,
-              width: 1
-            },
-            move: {
-              enable: true,
-              speed: 2,
-              direction: 'none',
-              random: true,
-              straight: false,
-              out_mode: 'out',
-              bounce: false,
-              attract: {
-                enable: true,
-                rotateX: 600,
-                rotateY: 1200
-              }
-            }
-          },
-          interactivity: {
-            detect_on: 'canvas',
-            events: {
-              onhover: {
-                enable: true,
-                mode: 'grab'
-              },
-              onclick: {
-                enable: false
-              },
-              resize: true
-            },
-            modes: {
-              grab: {
-                distance: 140,
-                line_linked: {
-                  opacity: 1
+            const allSkills = [
+                { name: 'Python', level: 95, category: 'language' },
+                { name: 'C++', level: 90, category: 'language' },
+                { name: 'JavaScript', level: 90, category: 'language' },
+                { name: 'TypeScript', level: 85, category: 'language' },
+                { name: 'SQL', level: 85, category: 'language' },
+                { name: 'HTML/CSS', level: 95, category: 'frontend' },
+                { name: 'React.js', level: 90, category: 'frontend' },
+                { name: 'Next.js', level: 85, category: 'frontend' },
+                { name: 'Flask', level: 90, category: 'backend' },
+                { name: 'Django', level: 80, category: 'backend' },
+                { name: 'REST API', level: 95, category: 'backend' },
+                { name: 'Hadoop', level: 75, category: 'data' },
+                { name: 'AWS', level: 70, category: 'data' },
+                { name: 'Docker', level: 65, category: 'data' },
+                { name: 'Git', level: 95, category: 'data' }
+            ];
+
+            const skillsCtx = document.getElementById('skillsChart').getContext('2d');
+            let skillsChart = new Chart(skillsCtx, {
+                type: 'bar',
+                data: {
+                    labels: allSkills.map(s => s.name),
+                    datasets: [{
+                        label: 'Proficiency',
+                        data: allSkills.map(s => s.level),
+                        backgroundColor: '#4DB6AC',
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
                 }
-              }
+            });
+            
+            const skillFilterBtns = document.querySelectorAll('.skill-filter-btn');
+            skillFilterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.dataset.filter;
+                    const filteredSkills = filter === 'all' ? allSkills : allSkills.filter(s => s.category === filter);
+                    
+                    skillsChart.data.labels = filteredSkills.map(s => s.name);
+                    skillsChart.data.datasets[0].data = filteredSkills.map(s => s.level);
+                    skillsChart.update();
+
+                    skillFilterBtns.forEach(b => b.classList.remove('bg-teal-500', 'text-white'));
+                    btn.classList.add('bg-teal-500', 'text-white');
+                });
+            });
+            document.querySelector('.skill-filter-btn[data-filter="all"]').classList.add('bg-teal-500', 'text-white');
+
+
+            const tabGreenlancer = document.getElementById('tab-greenlancer');
+            const tabUmich = document.getElementById('tab-umich');
+            const contentGreenlancer = document.getElementById('content-greenlancer');
+            const contentUmich = document.getElementById('content-umich');
+
+            function switchTab(activeTab, inactiveTab, activeContent, inactiveContent) {
+                activeTab.classList.add('active-tab');
+                inactiveTab.classList.remove('active-tab');
+                activeContent.classList.remove('hidden');
+                inactiveContent.classList.add('hidden');
             }
-          },
-          retina_detect: true
+
+            tabGreenlancer.addEventListener('click', () => switchTab(tabGreenlancer, tabUmich, contentGreenlancer, contentUmich));
+            tabUmich.addEventListener('click', () => switchTab(tabUmich, tabGreenlancer, contentUmich, contentGreenlancer));
+            
+            switchTab(tabGreenlancer, tabUmich, contentGreenlancer, contentUmich);
         });
-      }
-      // randomize theme
-      document.addEventListener('DOMContentLoaded', function() {
-        const hasVisited = sessionStorage.getItem('hasVisited');
+
+        function showProjectDetails(projectId) {
+            const allDetails = document.querySelectorAll('.project-detail-content');
+            allDetails.forEach(detail => {
+                detail.classList.add('hidden');
+            });
+            const targetDetail = document.getElementById(projectId);
+            if (targetDetail) {
+                targetDetail.classList.remove('hidden');
+            }
+        }
+
+        const terminalOutput = document.getElementById('terminal-output');
+        const terminalInput = document.getElementById('terminal-input');
         
-        if (!hasVisited) {
-          // show wakanda theme
-          setTheme(themes[0]);
-          sessionStorage.setItem('hasVisited', 'true');
-        } else {
-          const randomTheme = themes[Math.floor(Math.random() * themes.length)];
-          setTheme(randomTheme);
+        const commands = {
+            'help': `<div class="output-line"><span class="output-title">Available Commands:</span></div><div class="output-line output-indent"><b>help</b>           - Shows this help message.</div><div class="output-line output-indent"><b>about</b>          - Displays a short bio about me.</div><div class="output-line output-indent"><b>education</b>      - Shows my educational background.</div><div class="output-line output-indent"><b>experience</b>     - Lists my work experience.</div><div class="output-line output-indent"><b>projects</b>       - Lists my personal projects.</div><div class="output-line output-indent"><b>skills</b>         - Lists my technical skills.</div><div class="output-line output-indent"><b>contact</b>        - Displays my contact information.</div><div class="output-line output-indent"><b>resume</b>         - Provides a link to my resume.</div><div class="output-line output-indent"><b>ls</b>             - Lists available sections.</div><div class="output-line output-indent"><b>cat [section]</b>  - Displays content of a section. (e.g., 'cat projects')</div><div class="output-line output-indent"><b>clear</b>          - Clears the terminal screen.</div>`,
+            'ls': 'about/ education/ experience/ projects/ skills/ contact/ resume/',
+            'about': 'Sarang Bhide is a Computer Science student at the University of Michigan with a passion for building scalable web applications and leveraging data to create impactful software solutions. Experienced in full-stack development, CI/CD practices, and collaborative team environments.',
+            'education': `University of Michigan | Ann Arbor, Michigan
+Bachelor of Science in Computer Science, Expected May 2027
+GPA: 3.72/4.00
+Relevant Coursework: Data Structures and Algorithms (C++), Machine Learning (Python), Web Systems (Python, HTML/CSS/JS), Computer Organization (C), Computer Networks (C++), GPU Programming (C++, CUDA)`,
+            'experience': `GreenLancer, Software Engineer Intern (May 2025 - Aug 2025)
+  - Spearheaded backend integration for a real-time Activity Feed, reducing investigation time for user-reported errors by 20%.
+  - Designed and implemented robust SQL Server data models, tracking over 10,000 user actions monthly.
+  - Contributed to CI/CD practices, reducing post-deployment bug reports by 25%.
+
+University of Michigan, Instructional Aide (Aug 2025 - Present)
+  - Fostered a collaborative learning environment for 50+ students.
+  - Evaluated 100+ student assignments and supported an autograding pipeline.
+  - Facilitated troubleshooting sessions, reducing common debugging issues by 25%.`,
+            'projects': `Scalable Search Engine:
+  - Built a search engine using a Hadoop-based MapReduce pipeline to process and index extensive web page collections.
+  - Developed REST API-based Index servers for real-time data querying.
+  - Engineered a UI that uses multithreading to fetch and merge parallel responses for rapid display.
+
+Instagram Clone:
+  - Developed a full-stack web application with scalable architecture for user authentication, photo uploads, likes, and comments.
+  - Implemented highly performant RESTful APIs with Flask and Python.
+  - Optimized database queries to handle large datasets and ensure scalability.
+
+AI Karaoke Tool:
+  - Developed an audio processing tool using Next.js and TypeScript to isolate vocal audio from recordings.
+  - Leveraged Demucs, an open-source ML library, for high-fidelity audio separation.
+  - Engineered a robust preprocessing pipeline for various audio formats.`,
+            'skills': `Languages: C, C++, Python, C#, HTML, CSS, JavaScript, Java, TypeScript, SQL, R, Shell
+Technologies: React.js, Django, Flask, .NET, Docker, Hadoop, Git, REST API, AWS, Bootstrap, Next.js, macOS, Linux`,
+            'contact': `Email: ssbhide@umich.edu
+LinkedIn: linkedin.com/in/sarangbhide`,
+            'resume': `Access my full resume at: <a href="./Sarang_Bhide_Resume.pdf" target="_blank" class="text-blue-400 hover:text-blue-300 underline">Sarang_Bhide_Resume.pdf</a>`,
+        };
+
+        function displayOutput(text) {
+            terminalOutput.innerHTML += text + '<br>';
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
         }
-      });
 
-      // Make stuff appear
-      AOS.init({
-        duration: 800,
-        once: true,
-        offset: 100,
-        delay: 0
-      });
+        function handleCommand(command) {
+            const cmdParts = command.toLowerCase().trim().split(' ');
+            const primaryCmd = cmdParts[0];
+            const arg1 = cmdParts[1] || '';
+            
+            terminalOutput.innerHTML += `<span class="terminal-prompt">[</span><span class="terminal-user">guest</span><span class="terminal-prompt">@</span><span class="terminal-user">ssbhide.github.io</span><span class="terminal-prompt">] ~ </span><span class="terminal-symbol">$</span><span class="terminal-prompt"> ${command}</span>\n`;
 
-      // Close navbar on mobile link click
-      const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-      const menuToggle = document.getElementById('navbarNav');
-      const bsCollapse = new bootstrap.Collapse(menuToggle, { toggle: false });
-      navLinks.forEach((link) => {
-          link.addEventListener('click', () => {
-              if (menuToggle.classList.contains('show')) {
-                  bsCollapse.toggle();
-              }
-          });
-      });
+            if (primaryCmd === 'clear') {
+                terminalOutput.innerHTML = '';
+            } else if (commands[primaryCmd]) {
+                if (primaryCmd === 'cat') {
+                    if (commands[arg1]) {
+                        displayOutput(commands[arg1]);
+                    } else {
+                        displayOutput(`Error: Section '${arg1}' not found. Use 'ls' to see available sections.`);
+                    }
+                } else if (primaryCmd === 'goto') {
+                    if (document.getElementById(arg1)) {
+                        document.getElementById(arg1).scrollIntoView({ behavior: 'smooth' });
+                        displayOutput(`Navigating to ${arg1} section.`);
+                    } else {
+                        displayOutput(`Error: Section '${arg1}' not found. Use 'ls' to see available sections.`);
+                    }
+                } else {
+                    displayOutput(commands[primaryCmd]);
+                }
+            } else {
+                displayOutput(`Error: Command not found: ${command}. Type 'help' to see a list of commands.`);
+            }
+        }
+
+        terminalInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const command = terminalInput.value;
+                terminalInput.value = '';
+                handleCommand(command);
+            }
+        });
+
+        window.onload = function() {
+            displayOutput('Welcome to my interactive portfolio.');
+            displayOutput('Type \'help\' to see a list of available commands.');
+        };
     </script>
-
-    <!-- TYPING EFFECT!!!! -->
-    <script>
-      const typedTextSpan = document.getElementById("typed-text");
-      const cursorSpan = document.querySelector(".typed-cursor");
-
-      const words = ["Student {", "Software Developer {", "Violinist {", "Tech Enthusiast {", "Innovator {", "Creator {"];
-      const typingDelay = 150;
-      const erasingDelay = 100;
-      const newWordDelay = 2000;
-      let wordIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-
-      function typeEffect() {
-        const currentWord = words[wordIndex];
-
-        if (isDeleting) {
-          // Remove char
-          typedTextSpan.textContent = currentWord.substring(0, charIndex - 1);
-          charIndex--;
-        } else {
-          // Add char
-          typedTextSpan.textContent = currentWord.substring(0, charIndex + 1);
-          charIndex++;
-        }
-
-        let delay = isDeleting ? erasingDelay : typingDelay;
-
-        if (!isDeleting && charIndex === currentWord.length) {
-          // Pause at end of word
-          delay = newWordDelay;
-          isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-          // Move to next word
-          isDeleting = false;
-          wordIndex++;
-          if (wordIndex === words.length) {
-            wordIndex = 0;
-          }
-          delay = typingDelay / 2; // Slightly faster start for next word
-        }
-
-        setTimeout(typeEffect, delay);
-      }
-
-      document.addEventListener("DOMContentLoaded", function() {
-        if(words.length) setTimeout(typeEffect, newWordDelay + 250);
-      });
-    </script>
-  </body>
+</body>
 </html>
