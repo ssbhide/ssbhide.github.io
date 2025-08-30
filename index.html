@@ -81,6 +81,24 @@
             align-items: center;
             white-space: nowrap;
         }
+        .terminal-orientation-message {
+            display: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .terminal-orientation-message.show {
+            display: block;
+        }
+        @media (max-width: 640px) and (max-height: 500px) {
+            .terminal-orientation-message {
+                display: block;
+            }
+        }
         .terminal-input {
             background-color: transparent;
             border: none;
@@ -138,6 +156,14 @@
             <h3 class="text-3xl font-bold text-center mb-6">Interactive Terminal</h3>
             <div class="container mx-auto px-6 py-6 mt-4">
                 <div class="terminal-container">
+                    <div class="terminal-orientation-message" id="orientation-message">
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                            </svg>
+                            <span>Flip your device sideways for a better terminal experience!</span>
+                        </div>
+                    </div>
                     <div class="terminal-output" id="terminal-output"></div>
                     <div class="terminal-prompt-container">
                         <span class="terminal-prompt">[</span>
@@ -446,7 +472,7 @@
         const terminalInput = document.getElementById('terminal-input');
         
         const commands = {
-            'help': `<div class="output-line"><span class="output-title">Available Commands:</span></div><div class="output-line output-indent"><b>help</b>           - Shows this help message.</div><div class="output-line output-indent"><b>about</b>          - Displays a short bio about me.</div><div class="output-line output-indent"><b>education</b>      - Shows my educational background.</div><div class="output-line output-indent"><b>experience</b>     - Lists my work experience.</div><div class="output-line output-indent"><b>projects</b>       - Lists my personal projects.</div><div class="output-line output-indent"><b>skills</b>         - Lists my technical skills.</div><div class="output-line output-indent"><b>contact</b>        - Displays my contact information.</div><div class="output-line output-indent"><b>resume</b>         - Provides a link to my resume.</div><div class="output-line output-indent"><b>ls</b>             - Lists available sections.</div><div class="output-line output-indent"><b>cat [section]</b>  - Displays content of a section. (e.g., 'cat projects')</div><div class="output-line output-indent"><b>clear</b>          - Clears the terminal screen.</div>`,
+            'help': `<div class="output-line"><span class="output-title">Available Commands:</span></div><div class="output-line output-indent"><b>help</b>           - Shows this help message.</div><div class="output-line output-indent"><b>about</b>          - Displays a short bio about me.</div><div class="output-line output-indent"><b>education</b>      - Shows my educational background.</div><div class="output-line output-indent"><b>experience</b>     - Lists my work experience.</div><div class="output-line output-indent"><b>projects</b>       - Lists my personal projects.</div><div class="output-line output-indent"><b>skills</b>         - Lists my technical skills.</div><div class="output-line output-indent"><b>contact</b>        - Displays my contact information.</div><div class="output-line output-indent"><b>resume</b>         - Provides a link to my resume.</div><div class="output-line output-indent"><b>ls</b>             - Lists available sections.</div><div class="output-line output-indent"><b>clear</b>          - Clears the terminal screen.</div>`,
             'ls': 'about/ education/ experience/ projects/ skills/ contact/ resume/',
             'about': 'Sarang Bhide is a Computer Science student at the University of Michigan with a passion for building scalable web applications and leveraging data to create impactful software solutions. Experienced in full-stack development, CI/CD practices, and collaborative team environments.',
             'education': `University of Michigan | Ann Arbor, Michigan
@@ -498,13 +524,7 @@ LinkedIn: linkedin.com/in/sarangbhide`,
             if (primaryCmd === 'clear') {
                 terminalOutput.innerHTML = '';
             } else if (commands[primaryCmd]) {
-                if (primaryCmd === 'cat') {
-                    if (commands[arg1]) {
-                        displayOutput(commands[arg1]);
-                    } else {
-                        displayOutput(`Error: Section '${arg1}' not found. Use 'ls' to see available sections.`);
-                    }
-                } else if (primaryCmd === 'goto') {
+                if (primaryCmd === 'goto') {
                     if (document.getElementById(arg1)) {
                         document.getElementById(arg1).scrollIntoView({ behavior: 'smooth' });
                         displayOutput(`Navigating to ${arg1} section.`);
@@ -528,10 +548,40 @@ LinkedIn: linkedin.com/in/sarangbhide`,
             }
         });
 
+        // Make terminal clickable to focus input
+        const terminalContainer = document.querySelector('.terminal-container');
+        terminalContainer.addEventListener('click', function(event) {
+            // Don't focus if clicking on a link
+            if (event.target.tagName === 'A' || event.target.closest('a')) {
+                return;
+            }
+            // Focus the input field
+            terminalInput.focus();
+        });
+
         window.onload = function() {
             displayOutput('Welcome to my interactive portfolio.');
             displayOutput('Type \'help\' to see a list of available commands.');
+            checkOrientation();
         };
+
+        function checkOrientation() {
+            const message = document.getElementById('orientation-message');
+            const isPortrait = window.innerHeight > window.innerWidth;
+            const isSmallScreen = window.innerWidth < 640;
+            
+            if (isPortrait && isSmallScreen) {
+                message.classList.add('show');
+            } else {
+                message.classList.remove('show');
+            }
+        }
+
+        // Check orientation on resize and orientation change
+        window.addEventListener('resize', checkOrientation);
+        window.addEventListener('orientationchange', function() {
+            setTimeout(checkOrientation, 100); // Small delay to ensure orientation change is complete
+        });
     </script>
 </body>
 </html>
