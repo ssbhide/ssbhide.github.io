@@ -198,20 +198,32 @@
             <div class="max-w-4xl mx-auto">
                 <div class="mb-8 border-b border-gray-200">
                     <nav class="flex space-x-8" aria-label="Tabs">
-                        <button id="tab-greenlancer" class="py-4 px-1 text-gray-500 hover:text-gray-700 text-lg">GreenLancer</button>
-                        <button id="tab-umich" class="py-4 px-1 text-gray-500 hover:text-gray-700 text-lg">University of Michigan</button>
+                        <button id="tab-greenlancer" class="py-4 px-1 text-gray-500 hover:text-gray-700 text-lg flex items-center space-x-2">
+                            <img src="./greenlancer.png" alt="GreenLancer" class="w-6 h-6 object-contain">
+                            <span>GreenLancer</span>
+                        </button>
+                        <button id="tab-umich" class="py-4 px-1 text-gray-500 hover:text-gray-700 text-lg flex items-center space-x-2">
+                            <img src="./umich.png" alt="University of Michigan" class="w-6 h-6 object-contain">
+                            <span>University of Michigan</span>
+                        </button>
                     </nav>
                 </div>
 
                 <div id="content-greenlancer" class="space-y-4">
-                    <h4 class="text-2xl font-semibold">Software Engineer Intern</h4>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="./greenlancer.png" alt="GreenLancer" class="w-12 h-12 object-contain">
+                        <h4 class="text-2xl font-semibold">Software Engineer Intern</h4>
+                    </div>
                     <p class="text-gray-600">Collaborated with cross-functional teams (product and QA) to spearhead backend integration for a real-time Activity Feed, improving system transparency and reducing investigation time for user-reported errors by 20%.</p>
                     <p class="text-gray-600">Designed and implemented robust SQL Server data models to track over 10,000 unique user actions monthly, providing a comprehensive and scalable data foundation for internal business intelligence tools.</p>
                     <p class="text-gray-600">Contributed to CI/CD practices by automating feature deployment to a live beta environment using GitHub Actions, and led deployment walkthroughs with QA and external users, which reduced post-deployment bug reports by 25%.</p>
                 </div>
 
                 <div id="content-umich" class="hidden space-y-4">
-                    <h4 class="text-2xl font-semibold">Instructional Aide</h4>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="./umich.png" alt="University of Michigan" class="w-12 h-12 object-contain">
+                        <h4 class="text-2xl font-semibold">Instructional Aide</h4>
+                    </div>
                     <p class="text-gray-600">Fostered a collaborative learning environment by leading weekly discussion sections for over 50 students, translating complex web systems concepts into practical skills for application development.</p>
                     <p class="text-gray-600">Partnered with a team of instructional staff to evaluate over 100 student projects per semester, providing targeted feedback on coding practices and streamlining the autograding pipeline to enhance grading efficiency.</p>
                     <p class="text-600">Facilitated troubleshooting sessions for students, creating live demos that reduced common debugging and deployment issues by an estimated 25% and saved valuable class time.</p>
