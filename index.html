@@ -99,6 +99,27 @@
                 display: block;
             }
         }
+        .terminal-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+            color: #48bb78;
+            font-family: monospace;
+        }
+        .terminal-loading-dots {
+            display: inline-block;
+        }
+        .terminal-loading-dots::after {
+            content: '';
+            animation: loading-dots 1.5s infinite;
+        }
+        @keyframes loading-dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
         .typed-cursor {
             opacity: 1;
             font-weight: 100;
@@ -189,7 +210,10 @@
                             <span>Flip your device sideways for a better terminal experience!</span>
                         </div>
                     </div>
-                    <div class="terminal-output" id="terminal-output"></div>
+                    <div class="terminal-loading" id="terminal-loading">
+                        <span>Initializing terminal<span class="terminal-loading-dots"></span></span>
+                    </div>
+                    <div class="terminal-output" id="terminal-output" style="display: none;"></div>
                     <div class="terminal-prompt-container">
                         <span class="terminal-prompt">[</span>
                         <span class="terminal-user">guest</span>
@@ -594,6 +618,14 @@ LinkedIn: linkedin.com/in/sarangbhide`,
         window.onload = function() {
             // Start terminal after a short delay
             setTimeout(() => {
+                // Hide loading screen and show terminal
+                const loadingElement = document.getElementById('terminal-loading');
+                const outputElement = document.getElementById('terminal-output');
+                
+                loadingElement.style.display = 'none';
+                outputElement.style.display = 'block';
+                
+                // Display welcome message and commands
                 displayOutput('Welcome to my interactive portfolio.');
                 displayOutput(commands['help']);
             }, 2000);
