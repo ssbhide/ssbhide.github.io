@@ -99,6 +99,17 @@
                 display: block;
             }
         }
+        .typed-cursor {
+            opacity: 1;
+            font-weight: 100;
+            color: #2C3E50;
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
         .terminal-input {
             background-color: transparent;
             border: none;
@@ -160,7 +171,7 @@
                 </a>
             </div>
             
-            <h2 class="text-4xl md:text-5xl font-bold mb-4">Software Engineer</h2>
+            <h2 class="text-4xl md:text-5xl font-bold mb-4"><span id="typed-text"></span><span class="typed-cursor">|</span></h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto">
                 Hi there! I'm a Computer Science student at the University of Michigan with a passion for building scalable web applications and leveraging data to create impactful software solutions. I have experience in full-stack development, CI/CD practices, and collaborative team environments, and I look forward to making an impact in the real world.
             </p>
@@ -581,10 +592,62 @@ LinkedIn: linkedin.com/in/sarangbhide`,
         });
 
         window.onload = function() {
-            displayOutput('Welcome to my interactive portfolio.');
-            displayOutput(commands['help']);
+            // Start terminal after a short delay
+            setTimeout(() => {
+                displayOutput('Welcome to my interactive portfolio.');
+                displayOutput(commands['help']);
+            }, 2000);
+            
             checkOrientation();
         };
+
+        // TYPING EFFECT - Same as original website
+        const typedTextSpan = document.getElementById("typed-text");
+        const cursorSpan = document.querySelector(".typed-cursor");
+
+        const words = ["Software Engineer", "Computer Science Student", "Full-Stack Developer", "Tech Enthusiast", "Problem Solver", "Innovator"];
+        const typingDelay = 150;
+        const erasingDelay = 100;
+        const newWordDelay = 2000;
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentWord = words[wordIndex];
+
+            if (isDeleting) {
+                // Remove char
+                typedTextSpan.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                // Add char
+                typedTextSpan.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let delay = isDeleting ? erasingDelay : typingDelay;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                // Pause at end of word
+                delay = newWordDelay;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                // Move to next word
+                isDeleting = false;
+                wordIndex++;
+                if (wordIndex === words.length) {
+                    wordIndex = 0;
+                }
+                delay = typingDelay / 2; // Slightly faster start for next word
+            }
+
+            setTimeout(typeEffect, delay);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if(words.length) setTimeout(typeEffect, newWordDelay + 250);
+        });
 
         function checkOrientation() {
             const message = document.getElementById('orientation-message');
