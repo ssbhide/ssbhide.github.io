@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarang Bhide | Interactive Resume</title>
+    <title>Sarang Bhide | Interactive Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -168,6 +168,7 @@
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <h1 class="text-xl font-bold text-gray-800">Sarang Bhide</h1>
             <div class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-gray-600">About</a>
                 <a href="#experience" class="nav-link text-gray-600">Experience</a>
                 <a href="#education" class="nav-link text-gray-600">Education</a>
                 <a href="#projects" class="nav-link text-gray-600">Projects</a>
@@ -194,8 +195,63 @@
             
             <h2 class="text-4xl md:text-5xl font-bold mb-4"><span id="typed-text"></span><span class="typed-cursor">|</span></h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                Hi there! I'm Sarang, a Computer Science student at the University of Michigan with a passion for building scalable web applications and creating impactful software solutions. Feel free to check out my website!
+                Hi there! I'm Sarang, a junior at the University of Michigan studying Computer Science
             </p>
+        </section>
+
+        <section id="about" class="mb-20">
+            <h3 class="text-3xl font-bold text-center mb-12">About Me</h3>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 shadow-lg border border-purple-100 mb-8">
+                    <div class="text-center mb-8">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-4">My Current Top 5 Artists on Spotify</h4>
+                        <p class="text-gray-600 mb-6">Here are the artists I've been listening to most recently:</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full mx-auto mb-3 flex items-center justify-center overflow-hidden">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h5 class="font-semibold text-gray-800 text-sm">The Weeknd</h5>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full mx-auto mb-3 flex items-center justify-center overflow-hidden">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h5 class="font-semibold text-gray-800 text-sm">Drake</h5>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-gradient-to-br from-pink-400 to-red-400 rounded-full mx-auto mb-3 flex items-center justify-center overflow-hidden">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h5 class="font-semibold text-gray-800 text-sm">Taylor Swift</h5>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-gradient-to-br from-green-400 to-blue-400 rounded-full mx-auto mb-3 flex items-center justify-center overflow-hidden">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h5 class="font-semibold text-gray-800 text-sm">Post Malone</h5>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full mx-auto mb-3 flex items-center justify-center overflow-hidden">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h5 class="font-semibold text-gray-800 text-sm">Billie Eilish</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="terminal-section" class="mb-20">
@@ -702,6 +758,7 @@ LinkedIn: linkedin.com/in/sarangbhide`,
         window.addEventListener('orientationchange', function() {
             setTimeout(checkOrientation, 100); // Small delay to ensure orientation change is complete
         });
+
     </script>
 </body>
 </html>
