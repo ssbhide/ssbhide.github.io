@@ -676,6 +676,28 @@
             document.querySelector('.skill-filter-btn[data-filter="all"]').classList.add('bg-teal-500', 'text-white');
 
 
+            // Smooth scrolling with header offset
+            const header = document.querySelector('header');
+            const headerHeight = header.offsetHeight;
+            
+            // Add smooth scrolling to all navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const targetPosition = targetElement.offsetTop - headerHeight - 20; // 20px extra padding
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+
             const tabGreenlancer = document.getElementById('tab-greenlancer');
             const tabUmich = document.getElementById('tab-umich');
             const tabMedlaunch = document.getElementById('tab-medlaunch');
