@@ -408,13 +408,13 @@
         <section id="projects" class="mb-20">
             <h3 class="text-3xl font-bold text-center mb-12">Featured Projects</h3>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-karaoke')">
-                    <h4 class="text-xl font-bold mb-2">Karaoke Machine</h4>
-                    <p class="text-gray-600 mb-4">An audio processing tool using ML to isolate vocals from songs for instrumental accompaniment.</p>
-                     <div class="flex flex-wrap gap-2">
-                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">TypeScript</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Next.js</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">ML</span>
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-dl-classifier')">
+                    <h4 class="text-xl font-bold mb-2">Deep Learning Image Classifier</h4>
+                    <p class="text-gray-600 mb-4">Dog breed classifier using CNNs and a from-scratch ViT in PyTorch.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">PyTorch</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Deep Learning</span>
                     </div>
                 </div>
                 <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-cdn')">
@@ -445,12 +445,21 @@
                     </div>
                 </div>
                 <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-medlaunch')">
-                    <h4 class="text-xl font-bold mb-2">MedLaunch Web App</h4>
+                    <h4 class="text-xl font-bold mb-2">ExerVault</h4>
                     <p class="text-gray-600 mb-4">A TypeScript/React web application for physical therapists to assign personalized rehabilitation exercises.</p>
                     <div class="flex flex-wrap gap-2">
                         <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">TypeScript</span>
                         <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">React.js</span>
                         <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Git</span>
+                    </div>
+                </div>
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-karaoke')">
+                    <h4 class="text-xl font-bold mb-2">Karaoke Machine</h4>
+                    <p class="text-gray-600 mb-4">An audio processing tool using ML to isolate vocals from songs for instrumental accompaniment.</p>
+                     <div class="flex flex-wrap gap-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">TypeScript</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Next.js</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">ML</span>
                     </div>
                 </div>
                 <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-clipboard')">
@@ -480,9 +489,14 @@
                     <p class="text-gray-600 mb-2">Engineered a scalable load balancer supporting round-robin and geographic routing to efficiently distribute traffic across video servers and reduce client latency.</p>
                 </div>
                 <div id="project-medlaunch" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
-                    <h4 class="text-2xl font-bold mb-4">MedLaunch Web App</h4>
+                    <h4 class="text-2xl font-bold mb-4">ExerVault</h4>
                     <p class="text-gray-600 mb-2">Developed and deployed a TypeScript/React web application with secure account management, enabling physical therapists to assign personalized rehabilitation exercises with instructional videos and diagrams.</p>
                     <p class="text-gray-600 mb-2">Collaborated with a 7-person team using Git and agile practices to design, build, and demo the app to physical therapists, replacing manual paper workflows with a digital platform that improved efficiency and scaled care to over 50 patients.</p>
+                </div>
+                <div id="project-dl-classifier" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4">Deep Learning Image Classifier</h4>
+                    <p class="text-gray-600 mb-2">Implemented and trained convolutional neural networks (CNNs) in PyTorch to classify dog breeds, achieving high AUROC through early stopping, hyperparameter tuning, and transfer learning on augmented datasets.</p>
+                    <p class="text-gray-600 mb-2">Built a complete Vision Transformer (ViT) from scratch in PyTorch, engineering patch embeddings, transformer encoder blocks, and multi-head self-attention for efficient image feature extraction.</p>
                 </div>
                 <div id="project-instagram" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
                     <h4 class="text-2xl font-bold mb-4">Instagram Clone (Insta485)</h4>
@@ -775,7 +789,11 @@ University of Michigan, Instructional Aide (Aug 2025 - Present)
 MedLaunch, Software Developer (Sep 2025 - Present)
   - Developed and deployed TypeScript/React web application with secure account management, enabling physical therapists to assign personalized rehabilitation exercises.
   - Collaborated with 7-person team using Git and agile practices to design, build, and demo app to physical therapists, replacing manual paper workflows with digital platform.`,
-            'projects': `Karaoke Machine:
+            'projects': `Deep Learning Image Classifier (Oct 2025):
+  - Implemented and trained CNNs in PyTorch to classify dog breeds, achieving high AUROC via early stopping, hyperparameter tuning, transfer learning, and augmentation.
+  - Built a complete Vision Transformer (ViT) from scratch with patch embeddings, transformer encoders, and multi-head self-attention for efficient feature extraction.
+
+Karaoke Machine:
   - Developed audio processing tool with Next.js and TypeScript to isolate vocal tracks from recordings, producing high-fidelity instrumental accompaniments.
   - Optimized audio separation pipeline to process 3-5 minute tracks in under 30 seconds with >95% source-to-distortion ratio (SDR).
 
@@ -791,7 +809,7 @@ Scalable Search Engine:
   - Built scalable search engine with Python, Flask, SQL, and Hadoop MapReduce, implementing segmented inverted index and PageRank.
   - Developed RESTful index servers and multithreaded interface to aggregate parallel responses from distributed backends.
 
-MedLaunch Web App:
+ExerVault:
   - Developed and deployed TypeScript/React web application with secure account management for physical therapists.
   - Collaborated with 7-person team using Git and agile practices, replacing manual paper workflows with digital platform that scaled care to over 50 patients.
 
