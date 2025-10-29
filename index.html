@@ -409,12 +409,21 @@
             <h3 class="text-3xl font-bold text-center mb-12">Featured Projects</h3>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-karaoke')">
-                    <h4 class="text-xl font-bold mb-2">AI Karaoke Tool</h4>
+                    <h4 class="text-xl font-bold mb-2">Karaoke Machine</h4>
                     <p class="text-gray-600 mb-4">An audio processing tool using ML to isolate vocals from songs for instrumental accompaniment.</p>
                      <div class="flex flex-wrap gap-2">
                         <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">TypeScript</span>
                         <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Next.js</span>
                         <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">ML</span>
+                    </div>
+                </div>
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-cdn')">
+                    <h4 class="text-xl font-bold mb-2">Adaptive Video Streaming CDN</h4>
+                    <p class="text-gray-600 mb-4">An HTTP proxy in C++ that optimizes video playback quality using adaptive bitrate streaming.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">C++</span>
+                        <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">HTTP</span>
+                        <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">CDN</span>
                     </div>
                 </div>
                 <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-mapreduce')">
@@ -465,6 +474,11 @@
             </div>
             
             <div id="project-details" class="mt-12">
+                <div id="project-cdn" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4">Adaptive Video Streaming CDN</h4>
+                    <p class="text-gray-600 mb-2">Developed an HTTP proxy in C++ that optimized video playback quality by estimating client throughput and dynamically selecting segment bitrates using an EWMA algorithm.</p>
+                    <p class="text-gray-600 mb-2">Engineered a scalable load balancer supporting round-robin and geographic routing to efficiently distribute traffic across video servers and reduce client latency.</p>
+                </div>
                 <div id="project-medlaunch" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
                     <h4 class="text-2xl font-bold mb-4">MedLaunch Web App</h4>
                     <p class="text-gray-600 mb-2">Developed and deployed a TypeScript/React web application with secure account management, enabling physical therapists to assign personalized rehabilitation exercises with instructional videos and diagrams.</p>
@@ -477,7 +491,7 @@
                     <p class="text-gray-600">Analyzed and optimized database schema and queries, reducing database load by 15% and improving overall system performance and scalability.</p>
                 </div>
                 <div id="project-karaoke" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
-                    <h4 class="text-2xl font-bold mb-4">AI Karaoke Tool</h4>
+                    <h4 class="text-2xl font-bold mb-4">Karaoke Machine</h4>
                     <p class="text-gray-600 mb-2">Developed an audio processing tool with Next.js and TypeScript to isolate vocal tracks from recordings, producing high-fidelity instrumental accompaniments that improved clarity and realism for musicians during practice.</p>
                     <p class="text-gray-600 mb-2">Optimized audio separation pipeline to process 3–5 minute tracks in under 30 seconds with >95% source-to-distortion ratio (SDR), delivering high-fidelity instrumental and vocal stems.</p>
                 </div>
@@ -526,9 +540,13 @@
                 { name: 'C', level: 85, category: 'language' },
                 { name: 'JavaScript', level: 85, category: 'language' },
                 { name: 'Shell', level: 80, category: 'language' },
-                { name: 'C#', level: 75, category: 'language' },
+                { name: 'C#', level: 85, category: 'language' },
                 { name: 'R', level: 70, category: 'language' },
                 { name: 'React.js', level: 90, category: 'frontend' },
+                { name: 'HTML', level: 80, category: 'frontend' },
+                { name: 'CSS', level: 70, category: 'frontend' },
+                { name: 'Figma', level: 95, category: 'frontend' },
+                { name: 'Bootstrap', level: 85, category: 'frontend' },
                 { name: 'Node.js', level: 85, category: 'backend' },
                 { name: 'Flask', level: 90, category: 'backend' },
                 { name: 'Django', level: 85, category: 'backend' },
@@ -537,7 +555,9 @@
                 { name: 'Docker', level: 85, category: 'data' },
                 { name: 'Git', level: 95, category: 'data' },
                 { name: 'PyTorch', level: 80, category: 'data' },
+                { name: 'PostgreSQL', level: 70, category: 'data' },
                 { name: 'AWS', level: 75, category: 'data' },
+                { name: 'Azure', level: 80, category: 'data' },
                 { name: 'Linux', level: 85, category: 'data' }
             ];
 
@@ -755,9 +775,13 @@ University of Michigan, Instructional Aide (Aug 2025 - Present)
 MedLaunch, Software Developer (Sep 2025 - Present)
   - Developed and deployed TypeScript/React web application with secure account management, enabling physical therapists to assign personalized rehabilitation exercises.
   - Collaborated with 7-person team using Git and agile practices to design, build, and demo app to physical therapists, replacing manual paper workflows with digital platform.`,
-            'projects': `AI Karaoke Tool:
+            'projects': `Karaoke Machine:
   - Developed audio processing tool with Next.js and TypeScript to isolate vocal tracks from recordings, producing high-fidelity instrumental accompaniments.
   - Optimized audio separation pipeline to process 3-5 minute tracks in under 30 seconds with >95% source-to-distortion ratio (SDR).
+
+Adaptive Video Streaming CDN:
+  - Developed HTTP proxy in C++ that optimized video playback quality by estimating client throughput and dynamically selecting segment bitrates using EWMA algorithm.
+  - Engineered scalable load balancer supporting round-robin and geographic routing to efficiently distribute traffic across video servers and reduce client latency.
 
 Distributed MapReduce Framework:
   - Built fault-tolerant distributed computing framework in Python modeled after MapReduce, implementing TCP/JSON protocol for task coordination.
