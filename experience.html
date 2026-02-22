@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience | Sarang Bhide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            border: 3px solid #34495e;
+        }
+        
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        
+        .tagline {
+            font-style: italic;
+            color: #bdc3c7;
+        }
+        
+        .contact-links {
+            margin-top: 15px;
+        }
+        
+        .contact-links a {
+            color: #3498db;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        
+        .contact-links a:hover {
+            text-decoration: underline;
+        }
+        
+        nav {
+            background-color: #34495e;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border: 2px solid #2c3e50;
+        }
+        
+        nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            margin-right: 25px;
+            font-weight: bold;
+        }
+        
+        nav a:hover {
+            color: #3498db;
+        }
+        
+        nav a.active {
+            color: #3498db;
+            text-decoration: underline;
+        }
+        
+        section {
+            background-color: #fff;
+            margin-bottom: 20px;
+            padding: 25px;
+            border: 2px solid #333;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+        
+        .job-title {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .date {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        
+        .company {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .company a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .company a:hover {
+            text-decoration: underline;
+        }
+        
+        ul {
+            margin-left: 25px;
+            margin-top: 8px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        hr {
+            border: 0;
+            border-top: 1px dashed #95a5a6;
+            margin: 20px 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            border-top: 2px solid #333;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sarang Bhide</h1>
+        <p class="tagline">Backend Developer | Computer Science Student</p>
+        <div class="contact-links">
+            <a href="https://github.com/ssbhide" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/sarangbhide" target="_blank">LinkedIn</a>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="experience.html" class="active">Experience</a>
+        <a href="education.html">Education</a>
+        <a href="skills.html">Skills</a>
+        <a href="interactive.html">Interactive Portfolio</a>
+    </nav>
+
+    <section id="experience">
+        <h2>Professional Experience</h2>
+        
+        <div class="job-header">
+            <span class="job-title">Backend Developer Intern</span>
+            <span class="date">Summer 2026</span>
+        </div>
+        <p class="company"><a href="https://www.ibm.com/products/zos-communications-server" target="_blank">IBM - z/OS Communications Server</a></p>
+        <p>Incoming Summer 2026</p>
+        
+        <hr>
+        
+        <div class="job-header">
+            <span class="job-title">Software Engineer Intern</span>
+            <span class="date">Summer 2025</span>
+        </div>
+        <p class="company"><a href="https://www.greenlancer.com" target="_blank">GreenLancer</a></p>
+        <ul>
+            <li>As my first ever exposure to the real world of software engineering, this was probably the best learning experience I've ever had. I got to learn directly from Engineers and work with other interns on features deployed in production</li>
+            <li>I got to work with a new language and framework, C#/.NET and learned to compare it to my prior knowledge of Python and flask, enabling me to catch up on the codebase and begin working on stories (features)</li>
+            <li>Participated in my first ever daily standups, learning industry practices and realizing that I need two other developers to approve my pull requests instead of directly pushing to main without my project partner's knowledge</li>
+        </ul>
+        
+        <hr>
+        
+        <div class="job-header">
+            <span class="job-title">Instructional Aide</span>
+            <span class="date">August 2025 - Present</span>
+        </div>
+        <p class="company"><a href="https://umich.edu" target="_blank">University of Michigan</a></p>
+        <ul>
+            <li>My first time teaching people my own age or even older how to design and develop their own web applications, using Python and Django, as well as adding a MySQL database to their apps to support features like blogs</li>
+            <li>This really tested my ability to simplify development concepts for students to understand, as well as directly showing them where these concepts can be seen in their codebases</li>
+            <li>Helped students debug over hundereds of hours per semester, frequently finding that the issue was just a wrongly-named function or a misspelled variable</li>
+        </ul>
+        
+        <hr>
+        
+        <div class="job-header">
+            <span class="job-title">Software Developer</span>
+            <span class="date">August 2025 - Present</span>
+        </div>
+        <p class="company"><a href="https://medlaunch.engin.umich.edu/" target="_blank">MedLaunch</a></p>
+        <ul>
+            <li>First time working on a club project team. Got to work directly with a local physical rehabilitation clinic, Origami Rehabilitation, where we developed a website to replace their inefficient exercise assignment process</li>
+            <li>Used figma for the first time to actually present my ideas for different pages in the website, and presented to other teams in teh club on our progress</li>
+            <li>Realized that a lot of real world web development is very user-focused, with a high emphasis on functionality that is easy to use and a nice UI, as well as rigorous testing and finding different ways people can critique your project</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>© 2026 Sarang Bhide | Built with simple HTML & CSS</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarang Bhide | Interactive Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #2C3E50;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #4DB6AC;
+        }
+        .active-tab {
+            border-bottom: 2px solid #4DB6AC;
+            color: #4DB6AC;
+            font-weight: 500;
+        }
+        .project-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .terminal-container {
+            font-family: monospace;
+            background-color: #0d0d0d;
+            color: #48bb78;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid #333;
+        }
+        .terminal-output {
+            min-height: 100px;
+            max-height: 250px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            margin-bottom: 0.5rem;
+            line-height: 1.25;
+            -webkit-overflow-scrolling: touch;
+        }
+        .terminal-prompt {
+            color: #ffffff;
+        }
+        .terminal-user {
+            color: #48bb78;
+        }
+        .terminal-symbol {
+            color: #8A4E9E;
+        }
+        .terminal-prompt-container {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .terminal-orientation-message {
+            display: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .terminal-orientation-message.show {
+            display: block;
+        }
+        @media (max-width: 640px) and (max-height: 500px) {
+            .terminal-orientation-message {
+                display: block;
+            }
+        }
+        .terminal-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+            color: #48bb78;
+            font-family: monospace;
+        }
+        .terminal-loading-dots {
+            display: inline-block;
+        }
+        .terminal-loading-dots::after {
+            content: '';
+            animation: loading-dots 1.5s infinite;
+        }
+        @keyframes loading-dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+        .typed-cursor {
+            opacity: 1;
+            font-weight: 100;
+            color: #2C3E50;
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .terminal-input {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            width: calc(100% - 1.5rem);
+            caret-color: #ffffff;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #222;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #8A4E9E;
+            border-radius: 10px;
+            border: 2px solid #222;
+        }
+        .output-line {
+            line-height: 1.5;
+        }
+        .output-title {
+            color: #ffffff;
+        }
+        .output-indent {
+            margin-left: 20px;
+        }
+        .skill-circle {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .skill-circle:hover {
+            transform: scale(1.2);
+            z-index: 10;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .skill-circle.language { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .skill-circle.frontend { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .skill-circle.backend { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .skill-circle.data { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-800">Sarang Bhide</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-gray-600">About</a>
+                <a href="#experience" class="nav-link text-gray-600">Experience</a>
+                <a href="#education" class="nav-link text-gray-600">Education</a>
+                <a href="#projects" class="nav-link text-gray-600">Projects</a>
+                <a href="#skills" class="nav-link text-gray-600">Skills</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <section id="hero" class="text-center mb-20">
+            <!-- Social Media Icons -->
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="https://linkedin.com/in/sarangbhide" target="_blank" class="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/ssbhide" target="_blank" class="text-gray-600 hover:text-gray-900 transition-colors duration-300">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl font-bold mb-4"><span id="typed-text"></span><span class="typed-cursor">|</span></h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Hi there! I'm Sarang, a junior at the University of Michigan studying Computer Science. I'm passionate about technology, music, and creating meaningful connections through code.
+                When I'm not coding, you can find me exploring new music, playing basketball, or working on projects that make a difference in people's lives.
+            </p>
+        </section>
+        <section id="terminal-section" class="mb-20">
+            <h3 class="text-3xl font-bold text-center mb-6">Interactive Terminal</h3>
+            <div class="container mx-auto px-6 py-6 mt-4">
+                <div class="terminal-container">
+                    <div class="terminal-orientation-message" id="orientation-message">
+                        <div class="flex items-center justify-center space-x-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                            </svg>
+                            <span>Flip your device sideways for a better terminal experience!</span>
+                        </div>
+                    </div>
+                    <div class="terminal-loading" id="terminal-loading">
+                        <span>Initializing terminal<span class="terminal-loading-dots"></span></span>
+                    </div>
+                    <div class="terminal-output" id="terminal-output" style="display: none;"></div>
+                    <div class="terminal-prompt-container">
+                        <span class="terminal-prompt">[</span>
+                        <span class="terminal-user">guest</span>
+                        <span class="terminal-prompt">@</span>
+                        <span class="terminal-user">ssbhide.github.io</span>
+                        <span class="terminal-prompt">] ~ </span>
+                        <span class="terminal-symbol">$</span>
+                        <span class="terminal-prompt"> </span>
+                        <input type="text" id="terminal-input" class="terminal-input">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="mb-20">
+            <h3 class="text-3xl font-bold text-center mb-12">Professional Experience</h3>
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-8 border-b border-gray-200">
+                    <nav class="flex space-x-8" aria-label="Tabs">
+                        <button id="tab-ibm" class="py-4 px-1 text-gray-500 hover:text-gray-700 text-lg flex items-center space-x-2">
+                            <img src="images/ibm.png" alt="IBM" class="w-6 h-6 object-contain">
+                            <span>IBM</span>
+                        </button>
+                        <button id="tab-greenlancer" class="py-4 px-1 text-gray-500 hover:text-gray-700 text-lg flex items-center space-x-2">
+                            <img src="images/greenlancer.png" alt="GreenLancer" class="w-6 h-6 object-contain">
+                            <span>GreenLancer</span>
+                        </button>
+                        <button id="tab-umich" class="py-4 px-1 text-gray-500 hover:text-gray-700 text-lg flex items-center space-x-2">
+                            <img src="images/umich.png" alt="University of Michigan" class="w-6 h-6 object-contain">
+                            <span>University of Michigan</span>
+                        </button>
+                        <button id="tab-medlaunch" class="py-4 px-1 text-gray-500 hover:text-gray-700 text-lg flex items-center space-x-2">
+                            <img src="images/medlaunch.png" alt="MedLaunch" class="w-6 h-6 object-contain">
+                            <span>MedLaunch</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <div id="content-ibm" class="space-y-4">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="images/ibm.png" alt="IBM" class="w-12 h-12 object-contain">
+                        <h4 class="text-2xl font-semibold">Backend Developer Intern</h4>
+                    </div>
+                    <p class="text-gray-600">Incoming Summer 2026 z/OS Communications Server</p>
+                </div>
+
+                <div id="content-greenlancer" class="hidden space-y-4">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="images/greenlancer.png" alt="GreenLancer" class="w-12 h-12 object-contain">
+                        <h4 class="text-2xl font-semibold">Software Engineer Intern</h4>
+                    </div>
+                    <p class="text-gray-600">Collaborated with the product and QA teams to integrate a full-stack Activity Feed system that improved debugging efficiency and reduced investigation time for user-reported errors by 20%.</p>
+                    <p class="text-gray-600">Implemented robust SQL Server data models and query logic for comprehensive event tracking, supporting a system that logs over 10,000 unique user actions monthly and contributes to a reliable analytics pipeline.</p>
+                    <p class="text-gray-600">Contributed to a smooth deployment process by leading walkthroughs with QA and external users, leveraging GitHub Actions for CI/CD, which reduced post-deployment bug reports by 25%.</p>
+                </div>
+
+                <div id="content-umich" class="hidden space-y-4">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="images/umich.png" alt="University of Michigan" class="w-12 h-12 object-contain">
+                        <h4 class="text-2xl font-semibold">Instructional Aide</h4>
+                    </div>
+                    <p class="text-gray-600">Fostered a collaborative learning environment by leading weekly discussion sections for over 50 students, translating complex topics like Django and SQL into practical skills for hands-on web application development.</p>
+                    <p class="text-gray-600">Collaborated with a team of instructional staff to evaluate over 100 student projects per semester, providing feedback on coding practices and contributing to a centralized autograding pipeline.</p>
+                    <p class="text-gray-600">Facilitated troubleshooting sessions for 100 students, creating live demos that reduced common debugging and deployment issues by an estimated 25% and saved class time.</p>
+                </div>
+
+                <div id="content-medlaunch" class="hidden space-y-4">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="images/medlaunch.png" alt="MedLaunch" class="w-12 h-12 object-contain">
+                        <h4 class="text-2xl font-semibold">Software Developer</h4>
+                    </div>
+                    <p class="text-gray-600">Developed and deployed a TypeScript/React web application with secure account management, enabling physical therapists to assign personalized rehabilitation exercises with instructional videos and diagrams.</p>
+                    <p class="text-gray-600">Collaborated with a 7-person team using Git and agile practices to design, build, and demo the app to physical therapists, replacing manual paper workflows with a digital platform that improved efficiency and scaled care to over 50 patients.</p>
+                </div>
+
+
+            </div>
+            <div class="mt-16" id="education">
+                <h4 class="text-2xl font-bold text-center mb-6">Education</h4>
+                <div class="max-w-5xl mx-auto">
+                    <!-- Main Education Card -->
+                    <div class="bg-gradient-to-br from-blue-50 to-teal-50 rounded-2xl p-8 shadow-lg border border-blue-100 mb-8">
+                        <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                            <!-- University Logo/Icon Area -->
+                            <div class="flex-shrink-0">
+                                <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
+                                    <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <!-- University Details -->
+                            <div class="text-center md:text-left flex-1">
+                                <h5 class="text-2xl font-bold text-gray-800 mb-2">University of Michigan, Ann Arbor</h5>
+                                <p class="text-lg text-gray-700 mb-1">Bachelor of Science in Computer Science</p>
+                                <p class="text-gray-600 mb-4">Expected Graduation: May 2027</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Activities and Courses Grid -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Extracurricular Activities -->
+                        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                            <div class="flex items-center mb-4">
+                                <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <h6 class="text-lg font-semibold text-gray-800">Extracurricular Activities</h6>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">MedLaunch</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">Campus Orchestras</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">IM Basketball</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">IM Volleyball</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Relevant Coursework -->
+                        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                            <div class="flex items-center mb-4">
+                                <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                                    </svg>
+                                </div>
+                                <h6 class="text-lg font-semibold text-gray-800">Relevant Coursework</h6>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">Web Systems</span>
+                                    <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Completed</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">Theory of Compuation</span>
+                                    <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Completed</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">Data Structures and Algorithms</span>
+                                    <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Completed</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">Computer Organization</span>
+                                    <span class="ml-auto text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Completed</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">Machine Learning</span>
+                                    <span class="ml-auto text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Current</span>
+                                </div>
+                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                                    <span class="text-gray-700 font-medium">Computer Networks</span>
+                                    <span class="ml-auto text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Current</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="mb-20">
+            <h3 class="text-3xl font-bold text-center mb-12">Featured Projects</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-dl-classifier')">
+                    <h4 class="text-xl font-bold mb-2">Deep Learning Image Classifier</h4>
+                    <p class="text-gray-600 mb-4">Dog breed classifier using CNNs and a from-scratch ViT in PyTorch.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">PyTorch</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Deep Learning</span>
+                    </div>
+                </div>
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-cdn')">
+                    <h4 class="text-xl font-bold mb-2">Adaptive Video Streaming CDN</h4>
+                    <p class="text-gray-600 mb-4">An HTTP proxy in C++ that optimizes video playback quality using adaptive bitrate streaming.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">C++</span>
+                        <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">HTTP</span>
+                        <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">CDN</span>
+                    </div>
+                </div>
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-mapreduce')">
+                    <h4 class="text-xl font-bold mb-2">Distributed MapReduce Framework</h4>
+                    <p class="text-gray-600 mb-4">A fault-tolerant distributed computing framework in Python modeled after MapReduce.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">TCP/IP</span>
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">UDP</span>
+                    </div>
+                </div>
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-search')">
+                    <h4 class="text-xl font-bold mb-2">Scalable Search Engine</h4>
+                    <p class="text-gray-600 mb-4">A distributed search engine built to index and query millions of web pages with high performance.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
+                        <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Hadoop</span>
+                        <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Flask</span>
+                    </div>
+                </div>
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-medlaunch')">
+                    <h4 class="text-xl font-bold mb-2">ExerVault</h4>
+                    <p class="text-gray-600 mb-4">A TypeScript/React web application for physical therapists to assign personalized rehabilitation exercises.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">TypeScript</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">React.js</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Git</span>
+                    </div>
+                </div>
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-karaoke')">
+                    <h4 class="text-xl font-bold mb-2">Karaoke Machine</h4>
+                    <p class="text-gray-600 mb-4">An audio processing tool using ML to isolate vocals from songs for instrumental accompaniment.</p>
+                     <div class="flex flex-wrap gap-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">TypeScript</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Next.js</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">ML</span>
+                    </div>
+                </div>
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-clipboard')">
+                    <h4 class="text-xl font-bold mb-2">Clipboard Chrome Extension</h4>
+                    <p class="text-gray-600 mb-4">A Chrome extension for quick access to frequently used links like LinkedIn and portfolio.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">JavaScript</span>
+                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Chrome API</span>
+                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">HTML/CSS</span>
+                    </div>
+                </div>
+                <div class="project-card bg-white rounded-lg p-6 shadow-md cursor-pointer" onclick="showProjectDetails('project-instagram')">
+                    <h4 class="text-xl font-bold mb-2">Instagram Clone (Insta485)</h4>
+                    <p class="text-gray-600 mb-4">A full-stack web application replicating Instagram's core features with scalable architecture.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
+                        <span class="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Flask</span>
+                        <span class="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded-full">React.js</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="project-details" class="mt-12">
+                <div id="project-cdn" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4">Adaptive Video Streaming CDN</h4>
+                    <p class="text-gray-600 mb-2">Developed an HTTP proxy in C++ that optimized video playback quality by estimating client throughput and dynamically selecting segment bitrates using an EWMA algorithm.</p>
+                    <p class="text-gray-600 mb-2">Engineered a scalable load balancer supporting round-robin and geographic routing to efficiently distribute traffic across video servers and reduce client latency.</p>
+                </div>
+                <div id="project-medlaunch" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4">ExerVault</h4>
+                    <p class="text-gray-600 mb-2">Developed and deployed a TypeScript/React web application with secure account management, enabling physical therapists to assign personalized rehabilitation exercises with instructional videos and diagrams.</p>
+                    <p class="text-gray-600 mb-2">Collaborated with a 7-person team using Git and agile practices to design, build, and demo the app to physical therapists, replacing manual paper workflows with a digital platform that improved efficiency and scaled care to over 50 patients.</p>
+                </div>
+                <div id="project-dl-classifier" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4">Deep Learning Image Classifier</h4>
+                    <p class="text-gray-600 mb-2">Implemented and trained convolutional neural networks (CNNs) in PyTorch to classify dog breeds, achieving high AUROC through early stopping, hyperparameter tuning, and transfer learning on augmented datasets.</p>
+                    <p class="text-gray-600 mb-2">Built a complete Vision Transformer (ViT) from scratch in PyTorch, engineering patch embeddings, transformer encoder blocks, and multi-head self-attention for efficient image feature extraction.</p>
+                </div>
+                <div id="project-instagram" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4">Instagram Clone (Insta485)</h4>
+                    <p class="text-gray-600 mb-2">Developed a full-stack web application to replicate Instagram's core features, focusing on implementing a scalable architecture to handle user authentication, photo uploads, and user interactions.</p>
+                    <p class="text-gray-600 mb-2">Designed and implemented a robust Flask RESTful API to handle thousands of requests per hour with a fast response time, facilitating efficient data exchange between the frontend and backend.</p>
+                    <p class="text-gray-600">Analyzed and optimized database schema and queries, reducing database load by 15% and improving overall system performance and scalability.</p>
+                </div>
+                <div id="project-karaoke" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4">Karaoke Machine</h4>
+                    <p class="text-gray-600 mb-2">Developed an audio processing tool with Next.js and TypeScript to isolate vocal tracks from recordings, producing high-fidelity instrumental accompaniments that improved clarity and realism for musicians during practice.</p>
+                    <p class="text-gray-600 mb-2">Optimized audio separation pipeline to process 3–5 minute tracks in under 30 seconds with >95% source-to-distortion ratio (SDR), delivering high-fidelity instrumental and vocal stems.</p>
+                </div>
+                <div id="project-clipboard" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4">Clipboard Chrome Extension</h4>
+                    <p class="text-gray-600 mb-2">Developed a Chrome extension that provides quick access to frequently used links like LinkedIn and portfolio URLs, eliminating the need to search for these links repeatedly.</p>
+                    <p class="text-gray-600">Implemented a user-friendly interface with one-click copy functionality, allowing for instant access to professional links and improving productivity during networking and job applications.</p>
+                </div>
+                <div id="project-mapreduce" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4">Distributed MapReduce Framework</h4>
+                    <p class="text-gray-600 mb-2">Built a fault-tolerant distributed computing framework in Python modeled after MapReduce, implementing a TCP/JSON protocol for task coordination and a UDP heartbeat system to detect failures and reassign tasks across cluster nodes.</p>
+                    <p class="text-gray-600">Improved large-scale data processing by streaming mapper/reducer I/O with constant memory usage, enabling reliable handling of gigabyte-scale datasets and accelerating computation through efficient file merging techniques.</p>
+                </div>
+                <div id="project-search" class="project-detail-content hidden bg-white p-8 rounded-lg shadow-lg">
+                    <h4 class="text-2xl font-bold mb-4">Scalable Search Engine</h4>
+                    <p class="text-gray-600 mb-2">Built a scalable search engine with Python, Flask, SQL, and Hadoop MapReduce, implementing a segmented inverted index and PageRank to efficiently process, rank, and query large web datasets.</p>
+                    <p class="text-gray-600">Developed RESTful index servers and a multithreaded interface to aggregate parallel responses from distributed backends, ensuring rapid, accurate, and reliable search result delivery at scale.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="mb-12">
+            <h3 class="text-3xl font-bold text-center mb-6">Technical Skills</h3>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-8">Hover over the floating skill circles to see my proficiency levels. Each circle's size represents my expertise in that technology.</p>
+            <div class="text-center mb-8 space-x-2">
+                <button class="skill-filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full" data-filter="all">All</button>
+                <button class="skill-filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full" data-filter="language">Languages</button>
+                <button class="skill-filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full" data-filter="frontend">Frontend</button>
+                <button class="skill-filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full" data-filter="backend">Backend</button>
+                <button class="skill-filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full" data-filter="data">Data & Infra</button>
+            </div>
+            <div id="skills-animation" class="relative w-full h-96 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl overflow-hidden border border-gray-200">
+                <!-- Skill circles will be dynamically generated here -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const allSkills = [
+                { name: 'C++', level: 95, category: 'language' },
+                { name: 'Python', level: 95, category: 'language' },
+                { name: 'TypeScript', level: 90, category: 'language' },
+                { name: 'SQL', level: 90, category: 'language' },
+                { name: 'C', level: 85, category: 'language' },
+                { name: 'JavaScript', level: 85, category: 'language' },
+                { name: 'Shell', level: 80, category: 'language' },
+                { name: 'C#', level: 85, category: 'language' },
+                { name: 'R', level: 70, category: 'language' },
+                { name: 'React.js', level: 90, category: 'frontend' },
+                { name: 'HTML', level: 80, category: 'frontend' },
+                { name: 'CSS', level: 70, category: 'frontend' },
+                { name: 'Figma', level: 95, category: 'frontend' },
+                { name: 'Bootstrap', level: 85, category: 'frontend' },
+                { name: 'Node.js', level: 85, category: 'backend' },
+                { name: 'Flask', level: 90, category: 'backend' },
+                { name: 'Django', level: 85, category: 'backend' },
+                { name: 'REST APIs', level: 95, category: 'backend' },
+                { name: '.NET', level: 80, category: 'backend' },
+                { name: 'Docker', level: 85, category: 'data' },
+                { name: 'Git', level: 95, category: 'data' },
+                { name: 'PyTorch', level: 80, category: 'data' },
+                { name: 'PostgreSQL', level: 70, category: 'data' },
+                { name: 'AWS', level: 75, category: 'data' },
+                { name: 'Azure', level: 80, category: 'data' },
+                { name: 'Linux', level: 85, category: 'data' }
+            ];
+
+            // Particle System for Skills Animation
+            const skillsContainer = document.getElementById('skills-animation');
+            let currentSkills = [...allSkills];
+            let particles = [];
+            let animationId;
+
+            class Particle {
+                constructor(skill, container) {
+                    this.skill = skill;
+                    this.size = Math.max(40, (skill.level / 100) * 80 + 20);
+                    this.container = container;
+                    this.containerWidth = container.offsetWidth;
+                    this.containerHeight = container.offsetHeight;
+                    
+                    // Random starting position
+                    this.x = Math.random() * (this.containerWidth - this.size);
+                    this.y = Math.random() * (this.containerHeight - this.size);
+                    
+                    // Random velocity
+                    this.vx = (Math.random() - 0.5) * 2; // -1 to 1
+                    this.vy = (Math.random() - 0.5) * 2; // -1 to 1
+                    
+                    // Create DOM element
+                    this.element = document.createElement('div');
+                    this.element.className = `skill-circle ${skill.category}`;
+                    this.element.style.width = `${this.size}px`;
+                    this.element.style.height = `${this.size}px`;
+                    this.element.style.fontSize = `${Math.max(10, this.size / 6)}px`;
+                    this.element.textContent = skill.name;
+                    this.element.title = `${skill.name}: ${skill.level}%`;
+                    this.element.style.zIndex = Math.floor(Math.random() * 5) + 1;
+                    
+                    // Hover effects
+                    this.element.addEventListener('mouseenter', () => {
+                        this.element.style.transform = 'scale(1.2)';
+                        this.element.style.zIndex = '10';
+                    });
+                    
+                    this.element.addEventListener('mouseleave', () => {
+                        this.element.style.transform = 'scale(1)';
+                        this.element.style.zIndex = Math.floor(Math.random() * 5) + 1;
+                    });
+                    
+                    this.updatePosition();
+                    container.appendChild(this.element);
+                }
+                
+                update() {
+                    // Update position
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    
+                    // Bounce off walls
+                    if (this.x <= 0 || this.x >= this.containerWidth - this.size) {
+                        this.vx = -this.vx;
+                        this.x = Math.max(0, Math.min(this.containerWidth - this.size, this.x));
+                    }
+                    if (this.y <= 0 || this.y >= this.containerHeight - this.size) {
+                        this.vy = -this.vy;
+                        this.y = Math.max(0, Math.min(this.containerHeight - this.size, this.y));
+                    }
+                    
+                    this.updatePosition();
+                }
+                
+                updatePosition() {
+                    this.element.style.left = `${this.x}px`;
+                    this.element.style.top = `${this.y}px`;
+                }
+                
+                destroy() {
+                    if (this.element && this.element.parentNode) {
+                        this.element.parentNode.removeChild(this.element);
+                    }
+                }
+            }
+
+            function createParticles() {
+                // Clear existing particles
+                particles.forEach(particle => particle.destroy());
+                particles = [];
+                
+                // Create new particles
+                currentSkills.forEach(skill => {
+                    particles.push(new Particle(skill, skillsContainer));
+                });
+            }
+
+            function animate() {
+                particles.forEach(particle => particle.update());
+                animationId = requestAnimationFrame(animate);
+            }
+
+            function startAnimation() {
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                }
+                animate();
+            }
+
+            function stopAnimation() {
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                    animationId = null;
+                }
+            }
+
+            // Filter functionality
+            const skillFilterBtns = document.querySelectorAll('.skill-filter-btn');
+            skillFilterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.dataset.filter;
+                    currentSkills = filter === 'all' ? [...allSkills] : allSkills.filter(s => s.category === filter);
+                    createParticles();
+                    startAnimation();
+
+                    skillFilterBtns.forEach(b => b.classList.remove('bg-teal-500', 'text-white'));
+                    btn.classList.add('bg-teal-500', 'text-white');
+                });
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                particles.forEach(particle => {
+                    particle.containerWidth = skillsContainer.offsetWidth;
+                    particle.containerHeight = skillsContainer.offsetHeight;
+                });
+            });
+
+            // Initial setup
+            createParticles();
+            startAnimation();
+            document.querySelector('.skill-filter-btn[data-filter="all"]').classList.add('bg-teal-500', 'text-white');
+
+
+            // Smooth scrolling with header offset
+            const header = document.querySelector('header');
+            const headerHeight = header.offsetHeight;
+            
+            // Add smooth scrolling to all navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const targetPosition = targetElement.offsetTop - headerHeight - 20; // 20px extra padding
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+
+            const tabGreenlancer = document.getElementById('tab-greenlancer');
+            const tabUmich = document.getElementById('tab-umich');
+            const tabMedlaunch = document.getElementById('tab-medlaunch');
+            const tabIbm = document.getElementById('tab-ibm');
+            const contentGreenlancer = document.getElementById('content-greenlancer');
+            const contentUmich = document.getElementById('content-umich');
+            const contentMedlaunch = document.getElementById('content-medlaunch');
+            const contentIbm = document.getElementById('content-ibm');
+
+            function switchTab(activeTab, inactiveTab1, inactiveTab2, inactiveTab3, activeContent, inactiveContent1, inactiveContent2, inactiveContent3) {
+                activeTab.classList.add('active-tab');
+                inactiveTab1.classList.remove('active-tab');
+                inactiveTab2.classList.remove('active-tab');
+                inactiveTab3.classList.remove('active-tab');
+                activeContent.classList.remove('hidden');
+                inactiveContent1.classList.add('hidden');
+                inactiveContent2.classList.add('hidden');
+                inactiveContent3.classList.add('hidden');
+            }
+
+            tabGreenlancer.addEventListener('click', () => switchTab(tabGreenlancer, tabUmich, tabMedlaunch, tabIbm, contentGreenlancer, contentUmich, contentMedlaunch, contentIbm));
+            tabUmich.addEventListener('click', () => switchTab(tabUmich, tabGreenlancer, tabMedlaunch, tabIbm, contentUmich, contentGreenlancer, contentMedlaunch, contentIbm));
+            tabMedlaunch.addEventListener('click', () => switchTab(tabMedlaunch, tabGreenlancer, tabUmich, tabIbm, contentMedlaunch, contentGreenlancer, contentUmich, contentIbm));
+            tabIbm.addEventListener('click', () => switchTab(tabIbm, tabGreenlancer, tabUmich, tabMedlaunch, contentIbm, contentGreenlancer, contentUmich, contentMedlaunch));
+            
+            switchTab(tabIbm, tabGreenlancer, tabUmich, tabMedlaunch, contentIbm, contentGreenlancer, contentUmich, contentMedlaunch);
+        });
+
+        function showProjectDetails(projectId) {
+            const allDetails = document.querySelectorAll('.project-detail-content');
+            allDetails.forEach(detail => {
+                detail.classList.add('hidden');
+            });
+            const targetDetail = document.getElementById(projectId);
+            if (targetDetail) {
+                targetDetail.classList.remove('hidden');
+            }
+        }
+
+        const terminalOutput = document.getElementById('terminal-output');
+        const terminalInput = document.getElementById('terminal-input');
+        
+        const commands = {
+            'help': `<div class="output-line"><span class="output-title">Available Commands:</span></div><div class="output-line output-indent"><b>help</b>           - Shows this help message.</div><div class="output-line output-indent"><b>about</b>          - Displays a short bio about me.</div><div class="output-line output-indent"><b>education</b>      - Shows my educational background.</div><div class="output-line output-indent"><b>experience</b>     - Lists my work experience.</div><div class="output-line output-indent"><b>projects</b>       - Lists my personal projects.</div><div class="output-line output-indent"><b>skills</b>         - Lists my technical skills.</div><div class="output-line output-indent"><b>contact</b>        - Displays my contact information.</div><div class="output-line output-indent"><b>resume</b>         - Provides a link to my resume.</div><div class="output-line output-indent"><b>ls</b>             - Lists available sections.</div><div class="output-line output-indent"><b>clear</b>          - Clears the terminal screen.</div>`,
+            'ls': 'about/ education/ experience/ projects/ skills/ contact/ resume/',
+            'about': 'Sarang Bhide is a Computer Science student at the University of Michigan with a passion for building scalable web applications and leveraging data to create impactful software solutions. Experienced in full-stack development, CI/CD practices, and collaborative team environments.',
+            'education': `University of Michigan | Ann Arbor, Michigan
+Bachelor of Science in Computer Science, Expected May 2027
+Relevant Coursework: Machine Learning, Data Structures and Algorithms, Web Systems, Computer Networks, Computer Organization, Linear Algebra, Discrete Mathematics, Theory of Computation, Building Data-Driven Applications`,
+            'experience': `GreenLancer, Software Engineer Intern (May 2025 - Aug 2025)
+  - Collaborated with product and QA teams to integrate a full-stack Activity Feed system, reducing investigation time for user-reported errors by 20%.
+  - Implemented robust SQL Server data models and query logic for comprehensive event tracking, supporting over 10,000 unique user actions monthly.
+  - Contributed to smooth deployment process using GitHub Actions for CI/CD, reducing post-deployment bug reports by 25%.
+
+University of Michigan, Instructional Aide (Aug 2025 - Present)
+  - Fostered collaborative learning environment by leading weekly discussion sections for over 50 students, translating complex topics like Django and SQL into practical skills.
+  - Collaborated with instructional staff to evaluate over 100 student projects per semester, providing feedback on coding practices and contributing to centralized autograding pipeline.
+  - Facilitated troubleshooting sessions for 100 students, creating live demos that reduced common debugging and deployment issues by 25%.
+
+MedLaunch, Software Developer (Sep 2025 - Present)
+  - Developed and deployed TypeScript/React web application with secure account management, enabling physical therapists to assign personalized rehabilitation exercises.
+  - Collaborated with 7-person team using Git and agile practices to design, build, and demo app to physical therapists, replacing manual paper workflows with digital platform.`,
+            'projects': `Deep Learning Image Classifier (Oct 2025):
+  - Implemented and trained CNNs in PyTorch to classify dog breeds, achieving high AUROC via early stopping, hyperparameter tuning, transfer learning, and augmentation.
+  - Built a complete Vision Transformer (ViT) from scratch with patch embeddings, transformer encoders, and multi-head self-attention for efficient feature extraction.
+
+Karaoke Machine:
+  - Developed audio processing tool with Next.js and TypeScript to isolate vocal tracks from recordings, producing high-fidelity instrumental accompaniments.
+  - Optimized audio separation pipeline to process 3-5 minute tracks in under 30 seconds with >95% source-to-distortion ratio (SDR).
+
+Adaptive Video Streaming CDN:
+  - Developed HTTP proxy in C++ that optimized video playback quality by estimating client throughput and dynamically selecting segment bitrates using EWMA algorithm.
+  - Engineered scalable load balancer supporting round-robin and geographic routing to efficiently distribute traffic across video servers and reduce client latency.
+
+Distributed MapReduce Framework:
+  - Built fault-tolerant distributed computing framework in Python modeled after MapReduce, implementing TCP/JSON protocol for task coordination.
+  - Improved large-scale data processing by streaming mapper/reducer I/O with constant memory usage, enabling reliable handling of gigabyte-scale datasets.
+
+Scalable Search Engine:
+  - Built scalable search engine with Python, Flask, SQL, and Hadoop MapReduce, implementing segmented inverted index and PageRank.
+  - Developed RESTful index servers and multithreaded interface to aggregate parallel responses from distributed backends.
+
+ExerVault:
+  - Developed and deployed TypeScript/React web application with secure account management for physical therapists.
+  - Collaborated with 7-person team using Git and agile practices, replacing manual paper workflows with digital platform that scaled care to over 50 patients.
+
+Clipboard Chrome Extension:
+  - Developed Chrome extension for quick access to frequently used links like LinkedIn and portfolio URLs.
+  - Implemented user-friendly interface with one-click copy functionality, improving productivity during networking and job applications.
+
+Instagram Clone (Insta485):
+  - Developed full-stack web application to replicate Instagram's core features with scalable architecture for user authentication, photo uploads, and user interactions.
+  - Designed and implemented robust Flask RESTful API to handle thousands of requests per hour with fast response time.
+  - Analyzed and optimized database schema and queries, reducing database load by 15% and improving system performance.`,
+            'skills': `Languages: C++, Python, TypeScript, SQL, C, JavaScript, Shell, C#, R
+Technologies: Docker, Flask, Git, Node.js, PyTorch, React.js, REST APIs, Django, .NET, AWS, Linux`,
+            'contact': `Email: ssbhide@umich.edu
+LinkedIn: linkedin.com/in/sarangbhide`,
+            'resume': `Access my full resume at: <a href="./Sarang_Bhide_Resume.pdf" target="_blank" class="text-blue-400 hover:text-blue-300 underline">Sarang_Bhide_Resume.pdf</a>`,
+        };
+
+        function displayOutput(text) {
+            terminalOutput.innerHTML += text + '<br>';
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        function handleCommand(command) {
+            const cmdParts = command.toLowerCase().trim().split(' ');
+            const primaryCmd = cmdParts[0];
+            const arg1 = cmdParts[1] || '';
+            
+            terminalOutput.innerHTML += `<span class="terminal-prompt">[</span><span class="terminal-user">guest</span><span class="terminal-prompt">@</span><span class="terminal-user">ssbhide.github.io</span><span class="terminal-prompt">] ~ </span><span class="terminal-symbol">$</span><span class="terminal-prompt"> ${command}</span>\n`;
+
+            if (primaryCmd === 'clear') {
+                terminalOutput.innerHTML = '';
+            } else if (commands[primaryCmd]) {
+                if (primaryCmd === 'goto') {
+                    if (document.getElementById(arg1)) {
+                        document.getElementById(arg1).scrollIntoView({ behavior: 'smooth' });
+                        displayOutput(`Navigating to ${arg1} section.`);
+                    } else {
+                        displayOutput(`Error: Section '${arg1}' not found. Use 'ls' to see available sections.`);
+                    }
+                } else {
+                    displayOutput(commands[primaryCmd]);
+                }
+            } else {
+                displayOutput(`Error: Command not found: ${command}. Type 'help' to see a list of commands.`);
+            }
+        }
+
+        terminalInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const command = terminalInput.value;
+                terminalInput.value = '';
+                handleCommand(command);
+            }
+        });
+
+        // Make terminal clickable to focus input
+        const terminalContainer = document.querySelector('.terminal-container');
+        terminalContainer.addEventListener('click', function(event) {
+            // Don't focus if clicking on a link
+            if (event.target.tagName === 'A' || event.target.closest('a')) {
+                return;
+            }
+            // Focus the input field
+            terminalInput.focus();
+        });
+
+        window.onload = function() {
+            // Start terminal after a short delay
+            setTimeout(() => {
+                // Hide loading screen and show terminal
+                const loadingElement = document.getElementById('terminal-loading');
+                const outputElement = document.getElementById('terminal-output');
+                
+                loadingElement.style.display = 'none';
+                outputElement.style.display = 'block';
+                
+                // Display welcome message and commands
+                displayOutput('Welcome to my interactive portfolio.');
+                displayOutput(commands['help']);
+            }, 2000);
+            
+            checkOrientation();
+        };
+
+        // TYPING EFFECT - Same as original website
+        const typedTextSpan = document.getElementById("typed-text");
+        const cursorSpan = document.querySelector(".typed-cursor");
+
+        const words = ["Software Engineer", "Student", "Full-Stack Dev", "Tech Enthusiast", "Problem Solver", "Innovator"];
+        const typingDelay = 150;
+        const erasingDelay = 100;
+        const newWordDelay = 2000;
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentWord = words[wordIndex];
+
+            if (isDeleting) {
+                // Remove char
+                typedTextSpan.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                // Add char
+                typedTextSpan.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let delay = isDeleting ? erasingDelay : typingDelay;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                // Pause at end of word
+                delay = newWordDelay;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                // Move to next word
+                isDeleting = false;
+                wordIndex++;
+                if (wordIndex === words.length) {
+                    wordIndex = 0;
+                }
+                delay = typingDelay / 2; // Slightly faster start for next word
+            }
+
+            setTimeout(typeEffect, delay);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if(words.length) setTimeout(typeEffect, newWordDelay + 250);
+        });
+
+        function checkOrientation() {
+            const message = document.getElementById('orientation-message');
+            const isPortrait = window.innerHeight > window.innerWidth;
+            const isSmallScreen = window.innerWidth < 640;
+            
+            if (isPortrait && isSmallScreen) {
+                message.classList.add('show');
+            } else {
+                message.classList.remove('show');
+            }
+        }
+
+        // Check orientation on resize and orientation change
+        window.addEventListener('resize', checkOrientation);
+        window.addEventListener('orientationchange', function() {
+            setTimeout(checkOrientation, 100); // Small delay to ensure orientation change is complete
+        });
+
+    </script>
+</body>
+</html>
